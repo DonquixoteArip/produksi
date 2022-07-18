@@ -6,5 +6,5 @@
 <!-- Local Assets -->
 <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css') ?>">
 <script src="<?= base_url('public/assets/js/off-canvas.js') ?>"></script>
-<script src="<?= base_url('public/assets/js/hoverable.js') ?>"></script>
+<script src="<?= base_url('public/assets/js/hoverable-collapse.js') ?>"></script>
 <script src="<?= base_url('public/assets/js/settings.js') ?>"></script>
