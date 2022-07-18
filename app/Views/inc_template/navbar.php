@@ -4,8 +4,8 @@
             <button class="navbar-toggler navbar-toggler d-flex align-items-center" type="button" data-toggle="minimize">
                 <i class="fas fa-chevron-left fs-7 mx-2"></i>
             </button>
-            <ul class="navbar-nav">
-                <div class="d-flex justify-content-between" style="width: 60px;">
+            <ul class="navbar-nav mx-2">
+                <div class="d-flex justify-content-between" style="width: 70px;">
                     <a class="nav-link" id="messageDropdown" href="#">
                         <i class="fas fa-envelope text-white fs-6"></i>
                     </a>

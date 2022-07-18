@@ -3,11 +3,11 @@
         <li class="nav-item nav-profile border-bottom">
             <a href="#" class="nav-link flex-column">
                 <div class="nav-profile-image">
-                    <img src="<?= base_url('public/assets/images/faces/avatar-1.png') ?>">
+                    <img src="<?= base_url('public/assets/images/faces/avatar-1.png') ?>" />
                 </div>
                 <div class="nav-profile-text d-flex ms-0 mb-3 flex-column mt-2">
                     <span class="font-weight-semibold mb-1 mt-2 text-center">Asep Sanjaya</span>
-                    <span class="text-secondary icon-sm text-center">$9999.00</span>
+                    <span class="text-secondary icon-sm text-center">Rp. 10.000.000</span>
                 </div>
             </a>
         </li>
@@ -28,23 +28,21 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">
-                <div class="d-flex justify-content-center">
-                    <i class="fas fa-box fs-6 menu-icon"></i>
-                    <span class="fw-normal">Product</span>
-                </div>
+                <i class="fas fa-box fs-6 menu-icon"></i>
+                <span class="menu-title">Product</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#master" aria-expanded="false" aria-controls="master">
-                <div class="d-flex justify-content-center me-auto">
-                    <i class="fas fa-server fs-6 menu-icon"></i>
-                    <span class="fw-normal">Master</span>
-                </div>
-                <i class="fas fa-chevron-right fs-8 text-secondary"></i>
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="fas fa-server fs-6 menu-icon"></i>
+                <span class="menu-title me-auto">Master</span>
+                <i class="fas fa-chevron-right menu-title text-secondary fs-8"></i>
             </a>
-            <div class="collapse" id="master">
+            <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="3">User</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">User</a>
+                    </li>
                 </ul>
             </div>
         </li>
