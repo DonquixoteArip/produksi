@@ -43,10 +43,6 @@ $routes->add('logout', 'login\Login::logout');
 
 // Index Home
 $routes->add('product', 'master\Produksi::index');
-// Step Tabs
-$routes->add('produksi/form', 'master\Produksi::viewForms');
-$routes->add('produksi/produk', 'master\Produksi::viewProd');
-$routes->add('produksi/report', 'master\Produksi::viewReport');
 
 /*
  * --------------------------------------------------------------------

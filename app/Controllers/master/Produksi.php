@@ -23,21 +23,21 @@ class Produksi extends BaseController
         }
     }
 
-    public function viewForms()
-    {
-        $res['view'] = view('master/produksi/v_form');
-        echo json_encode($res);
-    }
+    // public function viewForms()
+    // {
+    //     $res['view'] = view('master/produksi/v_form');
+    //     echo json_encode($res);
+    // }
 
-    public function viewProd()
-    {
-        $res['view'] = view('master/produksi/v_produk');
-        echo json_encode($res);
-    }
+    // public function viewProd()
+    // {
+    //     $res['view'] = view('master/produksi/v_produk');
+    //     echo json_encode($res);
+    // }
 
-    public function viewReport()
-    {
-        $res['view'] = view('master/produksi/v_report');
-        echo json_encode($res);
-    }
+    // public function viewReport()
+    // {
+    //     $res['view'] = view('master/produksi/v_report');
+    //     echo json_encode($res);
+    // }
 }

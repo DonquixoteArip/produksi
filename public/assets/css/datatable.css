@@ -105,7 +105,6 @@ table.dataTable {
   table.dataTable thead .sorting_asc_disabled:before,
   table.dataTable thead .sorting_desc_disabled:before {
     right: 1em;
-    content: "sal";
   }
   table.dataTable thead .sorting:after,
   table.dataTable thead .sorting_asc:after,

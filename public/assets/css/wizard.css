@@ -39,12 +39,15 @@
     box-sizing: border-box
 }
 .sw > .tab-content {
-    display: none;
-    position: relative;
-    overflow: hidden
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5px;
+    width: max-content;
+    height: max-content;
 }
 .sw > .tab-content > .tab-pane {
-    padding: .8rem
+    padding: .2rem
 }
 .sw .toolbar {
     padding: .8rem;
@@ -483,7 +486,7 @@
     position: absolute;
     top: 18px;
     left: 0;
-    width: 240px;
+    width: 100%;
     height: 5px;
     background-color: var(--sw-border-color);
     border-radius: 3px;
