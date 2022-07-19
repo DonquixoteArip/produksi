@@ -11,7 +11,7 @@
                 </div>
             </a>
         </li>
-        <li class="nav-item p-3">
+        <li class="nav-item p-3 pt-3">
             <form class="d-flex" action="#">
                 <div class="input-group d-flex align-items-center">
                     <input type="text" class="form-control border rounded-pill px-3" placeholder="Search" id="search-input">
@@ -29,19 +29,19 @@
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <i class="fas fa-box fs-6 menu-icon"></i>
-                <span class="menu-title">Product</span>
+                <span class="menu-title text-secondary">Product</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" id="btn-side-collapse" aria-controls="ui-basic">
                 <i class="fas fa-server fs-6 menu-icon"></i>
-                <span class="menu-title me-auto">Master</span>
-                <i class="fas fa-chevron-right menu-title text-secondary fs-8"></i>
+                <span class="menu-title text-secondary me-auto">Master</span>
+                <i class="fas fa-chevron-right menu-title text-secondary fs-8 icon-sidebar" style="transition: 0.5s ease-in-out;"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">User</a>
+                        <a class="nav-link text-secondary" href="#">User</a>
                     </li>
                 </ul>
             </div>

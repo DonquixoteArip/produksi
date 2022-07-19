@@ -54,4 +54,10 @@ class Login extends BaseController
 
         echo json_encode($res);
     }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('login');
+    }
 }

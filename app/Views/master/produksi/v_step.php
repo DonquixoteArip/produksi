@@ -1,17 +1,25 @@
-<div class="row w-50">
-    <div class="col-lg-4">
-        <button class="btn btn-sm btn-inverse-success shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-            <span class="fw-bold fs-7">1</span>
-        </button>
-    </div>
-    <div class="col-lg-4">
-        <button class="btn btn-inverse-success shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-            <span class="fw-bold fs-7">2</span>
-        </button>
-    </div>
-    <div class="col-lg-4">
-        <button class="btn btn-inverse-success shadow-sm rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
-            <span class="fw-bold fs-7">3</span>
-        </button>
+<div id="smartwizard">
+    <ul class="nav">
+        <li class="nav-item me-3">
+            <a class="nav-link" href="#form" urls="<?= base_url('produksi/form') ?>">
+                <div class="num">1</div>
+                <span class="fs-7">Form</span>
+            </a>
+        </li>
+        <li class="nav-item me-3">
+            <a class="nav-link" href="#product" urls="<?= base_url('produksi/produk') ?>">
+                <span class="num">2</span>
+                <span class="fs-7">Product</span>
+            </a>
+        </li>
+        <li class="nav-item me-3">
+            <a class="nav-link" href="#report" urls="<?= base_url('produksi/report') ?>">
+                <span class="num">3</span>
+                <span class="fs-7">Report</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
     </div>
 </div>

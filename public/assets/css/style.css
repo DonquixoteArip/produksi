@@ -8922,6 +8922,10 @@
   .fs-7 {
     font-size: 0.8rem !important;
   }
+  
+  .fs-7set {
+    font-size: 0.6rem !important;
+  }
 
   .fs-8 {
     font-size: 0.5rem !important;
@@ -8943,7 +8947,7 @@
     font-weight: 400 !important; }
   
   .fw-semibold {
-    font-weight: 500 !important;
+    font-weight: 600 !important;
   }
 
   .fw-bold {

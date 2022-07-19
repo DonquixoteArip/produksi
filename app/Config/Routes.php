@@ -39,9 +39,14 @@ $routes->add('/', 'login\Login::index');
 // Login Auth
 $routes->add('login', 'login\Login::index');
 $routes->add('login/auth', 'login\Login::auth');
+$routes->add('logout', 'login\Login::logout');
 
 // Index Home
-$routes->add('produksi', 'master\Produksi::index');
+$routes->add('product', 'master\Produksi::index');
+// Step Tabs
+$routes->add('produksi/form', 'master\Produksi::viewForms');
+$routes->add('produksi/produk', 'master\Produksi::viewProd');
+$routes->add('produksi/report', 'master\Produksi::viewReport');
 
 /*
  * --------------------------------------------------------------------
