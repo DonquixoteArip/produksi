@@ -5,22 +5,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login Page</title>
-    <style>
-
-    </style>
     <?= $this->include('inc_template/v_script') ?>
 </head>
 
 <body>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
-            <div id="alert-msg" class="position-absolute m-3 end-0" style="height: max-content; width: 350px;">
+            <div id="alert-msg" class="position-absolute shadow m-3 end-0" style="height: max-content; width: 350px;">
 
             </div>
             <div class="content-wrapper d-flex align-items-center auth">
                 <div class="row flex-grow">
                     <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light shadow text-left rounded p-5" style="transition: 0.2s ease-in-out;">
+                        <div class="auth-form-light shadow text-left position-relative rounded p-5" style="transition: 0.2s ease-in-out;">
                             <h4 class="fw-bolder text-dark fs-5">Let's get started</h4>
                             <h5 class="fw-bold mt-3 text-primary">Log in to Continue</h5>
                             <form class="pt-3" id="formlogin">
@@ -50,6 +47,7 @@
 <script>
     $(document).ready(function() {
         $('#btn_login').on('click', function() {
+            $(this).html('<i class="fas fa-spinner fa-spin-pulse fs-7 text-white">');
             var link = '<?= base_url('login/auth') ?>',
                 data = $('#formlogin').serialize();
 
@@ -61,7 +59,7 @@
                 success: function(res) {
                     if (res.success == 1) {
                         $("#alert-msg").removeClass("alert alert-fill-danger");
-                        $("#alert-msg").addClass("alert alert-fill-success").html(res.msg);
+                        $("#alert-msg").addClass("alert alert-fill-success").html("<i class='fas fa-info-circle fs-6 text-white me-2'></i>" + res.msg);
                         setTimeout(() => {
                             window.location.href = '<?= base_url('product') ?>';
                         }, 1000);
@@ -69,11 +67,12 @@
                         $("#alert-msg")
                             .removeClass("alert alert-fill-success")
                             .addClass("alert alert-fill-danger")
-                            .html(res.msg);
+                            .html("<i class='fas fa-info-circle align-middle fs-6 text-white me-2'></i>" + res.msg);
                     }
                     $('#formlogin')[0].reset();
                     $("#alert-msg").fadeIn('slow');
                     setTimeout(() => {
+                        $('#btn_login').html('Log In');
                         $("#alert-msg").fadeOut('slow');
                     }, 850);
                 },

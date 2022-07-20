@@ -9,6 +9,7 @@
             <table class="table table-responsive table-hover table-striped table-bordered" id="tbl_data">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Type</th>
                         <th>Waktu</th>
                         <th>Batch</th>
@@ -19,7 +20,8 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>5</td>
+                        <td>1</td>
+                        <td>25</td>
                         <td>20 Mei 2022 17:09</td>
                         <td>5245166198</td>
                         <td>464864AD84AE</td>
@@ -30,6 +32,7 @@
                     </tr>
                     <tr>
                         <td>2</td>
+                        <td>14</td>
                         <td>15 Juli 2022 15:49</td>
                         <td>5656465654</td>
                         <td>464864ADATVAE</td>
@@ -39,7 +42,8 @@
                         <td>Member 4</td>
                     </tr>
                     <tr>
-                        <td>1</td>
+                        <td>3</td>
+                        <td>18</td>
                         <td>20 April 2022 11:09</td>
                         <td>5245166198</td>
                         <td>GVA4864AD84AE</td>

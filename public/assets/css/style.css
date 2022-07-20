@@ -20243,8 +20243,8 @@
             color: #141212;
             display: inline-block;
             font-size: 0.875rem;
-            line-height: 1;
             vertical-align: middle;
+            padding-top: 5px;
             white-space: normal; }
           .sidebar .nav .nav-item .nav-link .badge {
             margin-right: auto;

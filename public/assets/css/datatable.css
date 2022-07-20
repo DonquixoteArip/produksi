@@ -3,6 +3,7 @@ table.dataTable {
     margin-top: 6px !important;
     margin-bottom: 6px !important;
     max-width: none !important;
+    border: 1px solid #f2f2f2;
     border-collapse: separate !important;
     border-spacing: 0;
   }
@@ -54,7 +55,16 @@ table.dataTable {
   div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     margin: 2px 0;
     white-space: nowrap;
+    overflow: hidden;
     justify-content: flex-end;
+  }
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .paginate_button a {
+    background-color: #ffffff;
+    color: #6C7293;
+  }
+  div.dataTables_wrapper div.dataTables_paginate ul.pagination .paginate_button a:hover {
+    background-color: #0033C4;
+    color: #f2f2f2;
   }
   div.dataTables_wrapper div.dataTables_processing {
     position: absolute;
@@ -95,6 +105,7 @@ table.dataTable {
   table.dataTable thead .sorting_desc_disabled:before,
   table.dataTable thead .sorting_desc_disabled:after {
     position: absolute;
+    font-family: "Font Awesome 5 Pro";
     bottom: 0.9em;
     display: block;
     opacity: 0.3;
@@ -104,14 +115,18 @@ table.dataTable {
   table.dataTable thead .sorting_desc:before,
   table.dataTable thead .sorting_asc_disabled:before,
   table.dataTable thead .sorting_desc_disabled:before {
-    right: 1em;
+    right: 1em !important;
+    font-size: 8px !important;
+    content: '\25b2' !important;
   }
   table.dataTable thead .sorting:after,
   table.dataTable thead .sorting_asc:after,
   table.dataTable thead .sorting_desc:after,
   table.dataTable thead .sorting_asc_disabled:after,
   table.dataTable thead .sorting_desc_disabled:after {
-    right: 0.5em;
+    right: 0.2em !important;
+    font-size: 8px !important;
+    content: '\25bc' !important;
   }
   table.dataTable thead .sorting_asc:before,
   table.dataTable thead .sorting_desc:after {

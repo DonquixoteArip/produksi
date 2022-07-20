@@ -7,13 +7,17 @@
         $('#smartwizard').smartWizard({
             theme: 'dots',
             justified: true,
+            keyboard: {
+                keyNavigation: false,
+            },
             anchor: {
                 anchorClickable: true,
                 enableNavigationAlways: true,
-            }
-        });
-        $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection, stepPosition) {
-            console.log(anchorObject);
+            },
+            transition: {
+                animation: 'fade',
+                speed: '200',
+            },
         });
         $('#btn-sideslide').on('click', function() {
             $('.icon-chevron').toggleClass('rotateIcon');

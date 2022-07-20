@@ -32,50 +32,50 @@
                 <div class="col-lg-6">
                     <div class="row">
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card rounded">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">A</span>
+                                        <span class="fs-7 text-white">A</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label A</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-dark bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">B</span>
+                                        <span class="fs-7 text-white">B</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label B</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">C</span>
+                                        <span class="fs-7 text-white">C</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label C</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">D</span>
+                                        <span class="fs-7 text-white">D</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label D</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">E</span>
+                                        <span class="fs-7 text-white">E</span>
                                     </div>
                                 </a>
                             </div>
@@ -87,30 +87,30 @@
                 <div class="col-lg-6" style="border-left: 1px solid #C1C1C1;">
                     <div class="row">
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">F</span>
+                                        <span class="fs-7 text-white">F</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label F</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-dark bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">G</span>
+                                        <span class="fs-7 text-white">G</span>
                                     </div>
                                 </a>
                             </div>
                             <label class="fs-7set fw-semibold text-secondary">Label G</label>
                         </div>
                         <div class="col-lg-4 pb-3 px-2 text-center">
-                            <div class="card">
+                            <div class="card bg-success bg-opacity-75">
                                 <a href="#" class="text-decoration-none text-secondary">
                                     <div class="card-body">
-                                        <span class="fs-7">H</span>
+                                        <span class="fs-7 text-white">H</span>
                                     </div>
                                 </a>
                             </div>

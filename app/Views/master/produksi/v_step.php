@@ -1,21 +1,21 @@
-<div id="smartwizard" class="w-100">
+<div id="smartwizard" style="width: 100%; max-width: 1320px;">
     <ul class="nav nav-progress">
-        <li class="nav-item me-3">
-            <a class="nav-link btn-tabs" href="#form" urls="<?= base_url('produksi/form') ?>">
+        <li class="nav-item">
+            <a class="nav-link" href="#form" urls="<?= base_url('produksi/form') ?>">
                 <div class="num">1</div>
-                <span class="fs-7">Form</span>
+                <span class="text-secondary">Form</span>
             </a>
         </li>
-        <li class="nav-item me-3">
-            <a class="nav-link btn-tabs" href="#product" urls="<?= base_url('produksi/produk') ?>">
+        <li class="nav-item">
+            <a class="nav-link" href="#product" urls="<?= base_url('produksi/produk') ?>">
                 <span class="num">2</span>
-                <span class="fs-7">Product</span>
+                <span class="text-secondary">Product</span>
             </a>
         </li>
-        <li class="nav-item me-3">
-            <a class="nav-link btn-tabs" href="#report" urls="<?= base_url('produksi/report') ?>">
+        <li class="nav-item">
+            <a class="nav-link" href="#report" urls="<?= base_url('produksi/report') ?>">
                 <span class="num">3</span>
-                <span class="fs-7">Report</span>
+                <span class="text-secondary">Report</span>
             </a>
         </li>
     </ul>

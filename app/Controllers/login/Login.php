@@ -37,12 +37,12 @@ class Login extends BaseController
                     ];
                 } else {
                     $res['success'] = 0;
-                    $res['msg'] = 'Wrong Username or Password';
+                    $res['msg'] = 'Wrong Password';
                 }
             } else {
                 $res = [
                     'success' => 0,
-                    'msg' => 'Login data not exist',
+                    'msg' => 'Username or Password not registered',
                 ];
             }
         } else {

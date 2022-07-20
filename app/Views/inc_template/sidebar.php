@@ -11,7 +11,7 @@
                 </div>
             </a>
         </li>
-        <li class="nav-item p-3 pt-3">
+        <li class="nav-item p-3 pt-4">
             <form class="d-flex" action="#">
                 <div class="input-group d-flex align-items-center">
                     <input type="text" class="form-control border rounded-pill px-3" placeholder="Search" id="search-input">
