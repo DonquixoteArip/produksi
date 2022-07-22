@@ -29,6 +29,7 @@ class JSONFormatter implements FormatterInterface
     public function format($data)
     {
         $config = new Format();
+        var_dump($data);
 
         $options = $config->formatterOptions['application/json'] ?? JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
         $options = $options | JSON_PARTIAL_OUTPUT_ON_ERROR;
@@ -37,7 +38,7 @@ class JSONFormatter implements FormatterInterface
 
         $result = json_encode($data, $options, 512);
 
-        if (! in_array(json_last_error(), [JSON_ERROR_NONE, JSON_ERROR_RECURSION], true)) {
+        if (!in_array(json_last_error(), [JSON_ERROR_NONE, JSON_ERROR_RECURSION], true)) {
             throw FormatException::forInvalidJSON(json_last_error_msg());
         }
 

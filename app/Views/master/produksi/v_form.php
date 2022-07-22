@@ -78,6 +78,12 @@
         </div>
         <script>
             $('#tbl_prod').DataTable({})
+            $('#serialnum').keydown(function(e) {
+                if (e.keyCode == 13) {
+                    $.notify("samlekom", "success");
+                    $(this).val("");
+                }
+            })
         </script>
     </div>
 </div>

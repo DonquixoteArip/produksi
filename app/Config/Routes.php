@@ -43,6 +43,7 @@ $routes->add('logout', 'login\Login::logout');
 
 // Index Home
 $routes->add('product', 'master\Produksi::index');
+$routes->add('product/process', 'master\Produksi::showTxt');
 
 /*
  * --------------------------------------------------------------------
