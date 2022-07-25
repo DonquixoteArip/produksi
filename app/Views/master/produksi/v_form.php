@@ -30,9 +30,9 @@
                             <label class="fw-semibold fs-7">Material</label>
                             <select class="form-control form-control-sm" name="mater" id="mater">
                                 <option value="0" disabled selected>Select Material</option>
-                                <option value="Satu">Satu</option>
-                                <option value="Dua">Dua</option>
-                                <option value="Tiga">Tiga</option>
+                                <option value="111">Satu</option>
+                                <option value="222">Dua</option>
+                                <option value="333">Tiga</option>
                             </select>
                         </div>
                     </div>
@@ -80,19 +80,24 @@
             </form>
         </div>
         <div class="table-content mt-2">
-            <table class="table table-hover table-striped table-bordered w-100" id="tbl_prod">
+            <table class="table table-responsive table-hover table-striped table-bordered w-100" id="tbl_prod">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Serial Number</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="tbl_body">
 
                 </tbody>
             </table>
         </div>
     </div>
+    <style>
+        .dataTables_empty {
+            display: none;
+        }
+    </style>
     <script>
         $('#sub_all').on('click', function() {
             var link = '<?= base_url('prod/data') ?>',
@@ -104,7 +109,12 @@
                 dataType: 'json',
                 data: data,
                 success: function(res) {
-
+                    if (res.success == 1) {
+                        $.notify(res.num, 'success');
+                    } else {
+                        $.notify(res.msg, 'warn');
+                    }
+                    $('#formproduct')[0].reset();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $.notify(thrownError, "error");
@@ -113,7 +123,37 @@
         });
 
         $('#sub_serial').on('click', function() {
+            $.notify("samlekom", 'error');
+            var previx = $('#previx').val(),
+                serialnum = $('#serialnum').val(),
+                startnum = $('#startnum').val(),
+                qty = $('#qty').val();
 
+            if ($(this).attr('form') == 'serial') {
+                $('#tbl_body').append(
+                    '<tr>\
+                    <td>No</td>\
+                    <td>' + serialnum + '</td>\
+                </tr>\
+                '
+                );
+                $('#serialnum').val("");
+            } else if ($(this).attr('form') == 'previx') {
+                for (startnum; startnum < qty; startnum++) {
+                    $('#tbl_body').append(
+                        '<tr>\
+                        <td>No</td>\
+                        <td>' + previx + startnum + '</td>\
+                        </tr>\
+                        '
+                    );
+                }
+                $('#previx').val("");
+                $('#startnum').val("");
+                $('#qty').val("");
+            } else {
+                $.notify('Serial Number Required', 'warn');
+            }
         });
 
         $('#types').change(function() {
@@ -123,9 +163,11 @@
             if (type == 1) {
                 $('#form-const').removeClass('col-lg-6');
                 $('#form-const').addClass('col-lg-3');
+                $('#sub_serial').attr('form', 'serial');
             } else if (type == 2) {
                 $('#form-const').removeClass('col-lg-4');
                 $('#form-const').addClass('col-lg-6');
+                $('#sub_serial').attr('form', 'previx');
             }
 
             $.ajax({
@@ -142,7 +184,5 @@
                 }
             })
         });
-
-        var table = $('#tbl_prod').DataTable({});
     </script>
 </div>

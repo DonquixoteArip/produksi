@@ -5,6 +5,7 @@ namespace App\Controllers\master;
 use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
 use App\Models\Msproduct;
+use App\Models\MsProductionSn;
 use DateTime;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
@@ -14,6 +15,7 @@ class Product extends BaseController
     {
         $this->date = new DateTime('now');
         $this->prod = new Msproduct();
+        $this->sn = new MsProductionSn();
     }
 
     public function types()
@@ -37,11 +39,11 @@ class Product extends BaseController
                         </div>
                         <div class='col-lg-4'>
                             <label class='fw-semibold fs-7'>Start</label>
-                            <input type='num' class='form-control form-control-sm' name='startnum' id='startnum' placeholder='Start Number'>
+                            <input type='text' class='form-control form-control-sm' name='startnum' id='startnum' placeholder='Start Number'>
                         </div>
                         <div class='col-lg-4'>
                             <label class='fw-semibold fs-7'>QTY</label>
-                            <input type='num' class='form-control form-control-sm' name='qty' id='qty' placeholder='Quantity'>
+                            <input type='text' class='form-control form-control-sm' name='qty' id='qty' placeholder='Quantity'>
                         </div>
                     </div>
                 </div>
@@ -85,6 +87,7 @@ class Product extends BaseController
 
     public function process()
     {
+        $res = array();
         $id = $this->request->getPost('idp');
         $ordernum = $this->request->getPost('ordernum');
         $orderdate = $this->request->getPost('orderdate');
@@ -93,11 +96,47 @@ class Product extends BaseController
         $loc = $this->request->getPost('loc');
         $profcenter = $this->request->getPost('profcenter');
         $sn = $this->request->getPost('serialnum');
+        $previx = $this->request->getPost('previx');
+        $startnum = $this->request->getPost('startnum');
+        $qty = $this->request->getPost('qty');
 
         if ($id != '') {
             // Edit Data
         } else {
             // Add Data
+            $data = [
+                'productid' => $material,
+                'ordernumber' => $ordernum,
+                'orderdate' => $orderdate,
+                'batchnumber' => $batch,
+                'location' => $loc,
+                'profcenter' => $profcenter,
+                'createddate' => date('Y-m-d H:i:s'),
+                'createdby' => session()->get('id_user'),
+            ];
+            $q = $this->prod->tambah($data);
+            if ($q) {
+                if ($previx != '') {
+                    // many data
+                } else {
+                    $dtserial = [
+                        'headerid' => db_connect()->insertID(),
+                        'serialnumber' => $sn,
+                    ];
+                    $this->sn->tambah($dtserial);
+                }
+                $res = [
+                    'success' => 1,
+                    'msg' => 'New Data Added',
+                ];
+            } else {
+                $res = [
+                    'success' => 0,
+                    'msg' => 'Data not added',
+                ];
+            }
         }
+
+        echo json_encode($res);
     }
 }
