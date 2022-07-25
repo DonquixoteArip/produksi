@@ -1,4 +1,4 @@
-<div class="container bg-white shadow-sm rounded border-0 mt-2" style="height: max-content;">
+<div class="container bg-white shadow-sm rounded border-0" style="height: max-content;">
     <div class="content p-4 px-2">
         <div class="header-title d-flex justify-content-between align-items-start">
             <span class="fw-bold fs-6 text-secondary">REPORT</span>

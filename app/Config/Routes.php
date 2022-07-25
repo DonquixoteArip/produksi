@@ -45,6 +45,12 @@ $routes->add('logout', 'login\Login::logout');
 $routes->add('product', 'master\Produksi::index');
 $routes->add('product/process', 'master\Produksi::showTxt');
 
+// Datatables
+$routes->add('prod/table', 'master\Product::datatable');
+
+// Product
+$routes->add('prod/type', 'master\Product::types');
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

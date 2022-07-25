@@ -1,10 +1,10 @@
-<div class="container bg-white shadow-sm rounded border-0 mt-2" style="height: max-content;">
+<div class="container bg-white shadow-sm rounded border-0" style="height: max-content;">
     <div class="content p-4 px-2" id="prodcontent">
         <div class="header-title text-start">
             <span class="fw-bold fs-6 text-secondary">PRODUK</span>
         </div>
         <hr>
-        <div class="product-content mt-2">
+        <div class="product-content">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="container text-center bg-primary rounded w-75 p-2">
@@ -14,13 +14,13 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="container text-center bg-primary rounded w-75 p-2">
-                        <h6 class="text-white fs-7 fw-bold">Total Match</h6>
+                        <h6 class="text-white fs-7 fw-semibold">Total Match</h6>
                         <span class="fw-light text-white">5</span>
                     </div>
                 </div>
                 <div class="col-lg-4">
                     <div class="container text-center bg-primary rounded w-75 p-2">
-                        <h6 class="text-white fs-7 fw-bold">Total Unmatch</h6>
+                        <h6 class="text-white fs-7 fw-semibold">Total Unmatch</h6>
                         <span class="fw-light text-white">3</span>
                     </div>
                 </div>

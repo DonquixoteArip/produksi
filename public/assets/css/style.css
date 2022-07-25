@@ -11639,7 +11639,7 @@
   /* Typography */
   body {
     font-size: 1rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     font-weight: initial;
     line-height: normal;
@@ -11652,7 +11652,7 @@
   .h4,
   .h5,
   .h6 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 600; }
   
   p {
@@ -11799,7 +11799,7 @@
   code {
     padding: 5px;
     color: #ff0854;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 300;
     font-size: 0.875rem;
     border-radius: 4px; }
@@ -11838,7 +11838,7 @@
     -webkit-transition: all 0.25s ease;
     -ms-transition: all 0.25s ease;
     font-size: calc(0.875rem - 0.05rem);
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400; }
     .footer a {
       color: #00d284;
@@ -11953,19 +11953,19 @@
     color: #313131; }
   
   .font-weight-light {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 300; }
   
   .font-weight-bold {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 700; }
   
   .font-weight-normal {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400; }
   
   .font-weight-semibold {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 600; }
   
   .image-grouped {
@@ -12634,7 +12634,7 @@
       border: none;
       padding: 2rem; }
       .accordion .card .card-header * {
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 400;
         font-size: 1rem; }
       .accordion .card .card-header a {
@@ -12665,7 +12665,7 @@
     .accordion .card .card-body {
       font-size: 14px;
       padding: 0 2rem 2rem 2rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400;
       line-height: 1.5; }
       .accordion .card .card-body i {
@@ -12795,7 +12795,7 @@
     font-weight: initial;
     line-height: 1;
     padding: .375rem .5625rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 600; }
     .badge.badge-pill {
       border-radius: 10rem; }
@@ -12958,7 +12958,7 @@
   .btn, .fc button, .ajax-upload-dragdrop .ajax-file-upload, .swal2-modal .swal2-buttonswrapper .swal2-styled, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-confirm, .swal2-modal .swal2-buttonswrapper .swal2-styled.swal2-cancel, .wizard > .actions a {
     font-size: 12px;
     line-height: 1;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 600;
     /* Buttons with only icons */
     /* Buttons with icon and text */ }
@@ -13755,18 +13755,18 @@
       color: #313131;
       margin-bottom: 0.75rem;
       text-transform: capitalize;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 700;
       font-size: 16px; }
     .card .card-subtitle {
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400;
       margin-top: 0.625rem;
       margin-bottom: 0.625rem; }
     .card .card-description {
       color: #76838f;
       margin-bottom: 1.5rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400; }
     .card.card-outline-success {
       border: 1px solid theme-color("success"); }
@@ -14022,7 +14022,7 @@
   .tt-query,
   .tt-hint {
     border: 1px solid #e4e9f0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     font-size: 0.8125rem; }
     .form-control:focus, .asColorPicker-input:focus, .dataTables_wrapper select:focus, .jsgrid .jsgrid-table .jsgrid-filter-row input:focus[type=text],
@@ -14190,7 +14190,7 @@
       -ms-flex-align: center;
       align-items: center;
       padding: 15px 15px;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400;
       font-size: 0.875rem; }
       .icons-list > div i {
@@ -15532,7 +15532,7 @@
     .table thead th, .jsgrid .jsgrid-table thead th {
       border-top: 0;
       border-bottom-width: 1px;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 600;
       font-weight: initial; }
       .table thead th i, .jsgrid .jsgrid-table thead th i {
@@ -15642,7 +15642,7 @@
       background: transparent;
       border-color: rgba(255, 255, 255, 0.2);
       color: #000b2b;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 700;
       padding: 1.75rem; }
       .nav-tabs.nav-tabs-vertical-custom .nav-link.active {
@@ -15907,7 +15907,7 @@
     min-width: 5.625rem;
     z-index: 1029; }
     .tooltip .tooltip-inner {
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400; }
   
   .tooltip-primary .tooltip-inner {
@@ -16058,7 +16058,7 @@
       .pricing-table .pricing-card .pricing-card-body .plan-features li {
         text-align: left;
         padding: 4px 0px;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 400;
         font-size: 0.875rem; }
   
@@ -16180,7 +16180,7 @@
         font-size: 0.875rem;
         color: #0033c4;
         margin-bottom: 0;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 700; }
       .email-wrapper .mail-sidebar .menu-bar .online-status .status {
         height: 10px;
@@ -16234,7 +16234,7 @@
           padding: 5px 10px 0 15px; }
           .email-wrapper .mail-sidebar .menu-bar .profile-list-item a .user .u-name {
             margin: 0;
-            font-family: 'Open Sans', sans-serif;
+            font-family: "Nunito", "Segoe UI", arial;
             font-weight: 400;
             font-size: 0.875rem;
             line-height: 1;
@@ -16281,7 +16281,7 @@
         .email-wrapper .mail-list-container .mail-list .content .sender-name {
           margin-bottom: 0;
           font-size: 0.875rem;
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Nunito", "Segoe UI", arial;
           font-weight: 400;
           max-width: 95%; }
         .email-wrapper .mail-list-container .mail-list .content .message_text {
@@ -16318,15 +16318,15 @@
       padding-bottom: 0; }
       .email-wrapper .message-body .sender-details .details .msg-subject {
         margin-bottom: 0;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 700; }
       .email-wrapper .message-body .sender-details .details .sender-email {
         margin-bottom: 20px;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 400; }
         .email-wrapper .message-body .sender-details .details .sender-email i {
           font-size: 1rem;
-          font-family: 'Open Sans', sans-serif;
+          font-family: "Nunito", "Segoe UI", arial;
           font-weight: 700;
           margin: 0 1px 0 7px; }
   
@@ -16387,7 +16387,7 @@
     left: 50%;
     z-index: 1000;
     font-size: 0.875rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     font-weight: initial;
     line-height: 1.85;
@@ -16396,7 +16396,7 @@
     transform: scale(0.8); }
     .avgrund-popin p {
       font-size: 0.875rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400;
       font-weight: initial; }
   
@@ -16575,7 +16575,7 @@
   /* CodeMirror */
   .CodeMirror {
     font-size: 0.875rem;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     height: auto;
     text-align: left;
@@ -16676,7 +16676,7 @@
     .context-menu-list .context-menu-item span {
       color: #000000;
       font-size: .75rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 700; }
     .context-menu-list .context-menu-item.context-menu-hover {
       background: #000000; }
@@ -16812,7 +16812,7 @@
         text-align: right; }
       .datepicker.datepicker-dropdown .datepicker-days table.table-condensed thead tr th.dow,
       .datepicker.datepicker-inline .datepicker-days table.table-condensed thead tr th.dow {
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 700;
         color: color(gray);
         font-size: .875rem;
@@ -17042,7 +17042,7 @@
               border-radius: 0;
               color: #ffffff;
               padding: 2rem 1rem;
-              font-family: 'Open Sans', sans-serif;
+              font-family: "Nunito", "Segoe UI", arial;
               font-weight: 400; }
               @media (max-width: 991px) {
                 .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.next, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.prev, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.datepicker-switch, .datepicker-custom .datepicker.datepicker-inline .datepicker-days .table-condensed thead tr th.dow,
@@ -17251,7 +17251,7 @@
     height: auto;
     background-image: none;
     text-shadow: none;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     background-color: #ffffff;
     border-color: #e4e9f0;
@@ -17382,7 +17382,7 @@
   
   .jsgrid .jsgrid-table th {
     font-weight: initial;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 700; }
   
   .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number] {
@@ -17504,7 +17504,7 @@
     .noUi-target .noUi-pips .noUi-value {
       color: #000000;
       font-size: 0.94rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 700; }
   
   /* Slider Color variations */
@@ -17854,7 +17854,7 @@
     .swal2-modal .swal2-title {
       font-size: 25px;
       line-height: 1;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 600;
       color: #030303;
       font-weight: initial;
@@ -17879,7 +17879,7 @@
           font-weight: initial; }
     .swal2-modal .swal2-content {
       font-size: 0.875rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 600;
       color: #030303;
       font-weight: initial;
@@ -18182,7 +18182,7 @@
         text-decoration: none;
         border-radius: 5px;
         font-size: 0.875rem;
-        font-family: 'Open Sans', sans-serif;
+        font-family: "Nunito", "Segoe UI", arial;
         font-weight: 600; }
         .wizard > .steps a:hover {
           display: block;
@@ -19601,7 +19601,7 @@
     .settings-panel .settings-heading {
       padding: 16px 0 13px 35px;
       font-size: 0.875rem;
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 700;
       line-height: 1;
       color: rgba(0, 0, 0, 0.9);
@@ -19736,7 +19736,7 @@
         right: unset;
         left: 10px; }
     .settings-panel .events p {
-      font-family: 'Open Sans', sans-serif;
+      font-family: "Nunito", "Segoe UI", arial;
       font-weight: 400; }
     .rtl .settings-panel {
       right: unset;
@@ -19796,7 +19796,7 @@
   
   /* Navbar */
   .navbar {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 300;
     left: 260px;
     transition: left 0.25s ease;
@@ -20156,7 +20156,7 @@
   .sidebar {
     min-height: calc(100vh - 60px);
     background: #ffffff;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Nunito", "Segoe UI", arial;
     font-weight: 400;
     padding: 0;
     width: 260px;
@@ -20331,7 +20331,7 @@
           background: #1a55e3; }
           .sidebar .nav .nav-item:not(:nth-child(2)).active > .nav-link .menu-title {
             color: #ffffff;
-            font-family: 'Open Sans', sans-serif;
+            font-family: "Nunito", "Segoe UI", arial;
             font-weight: 600; }
             .sidebar-icon-only .sidebar .nav .nav-item:not(:nth-child(2)).active > .nav-link .menu-title {
               color: #000000; }

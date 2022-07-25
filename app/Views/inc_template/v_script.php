@@ -1,7 +1,7 @@
 <script src="https://kit.fontawesome.com/9cc02ff3df.js"></script>
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="<?= base_url('public/assets/css/datatable.css') ?>">
 <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css') ?>">
 <link rel="stylesheet" href="<?= base_url('public/assets/css/wizard.css') ?>">

@@ -11,10 +11,10 @@
                 </div>
             </a>
         </li>
-        <li class="nav-item p-3 pt-4">
+        <li class="nav-item p-3 pt-3">
             <form class="d-flex" action="#">
                 <div class="input-group d-flex align-items-center">
-                    <input type="text" class="form-control border rounded-pill px-3" placeholder="Search" id="search-input">
+                    <input type="text" class="form-control border fs-7 rounded-pill px-3" placeholder="Search" id="search-input">
                     <span class="input-group-append">
                         <button type="button" class="btn btn-sm btn-outline-secondary bg-white border-start-0 border rounded-pill" title="Search">
                             <i class="fa fa-search text-dark fs-7"></i>
@@ -23,7 +23,7 @@
                 </div>
             </form>
         </li>
-        <li class="pt-2 pb-1">
+        <li class="pt-1">
             <span class="nav-item-head">Dashboard</span>
         </li>
         <li class="nav-item">
