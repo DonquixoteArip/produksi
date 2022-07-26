@@ -51,6 +51,8 @@ $routes->add('prod/table', 'master\Product::datatable');
 // Product
 $routes->add('prod/type', 'master\Product::types');
 $routes->add('prod/data', 'master\Product::process');
+$routes->add('prod/addser', 'master\Product::serialAdd');
+$routes->add('prod/edit', 'master\Product::forms');
 
 /*
  * --------------------------------------------------------------------

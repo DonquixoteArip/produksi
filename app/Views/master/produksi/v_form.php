@@ -1,7 +1,7 @@
 <div class="container bg-white shadow-sm rounded border-0" style="height: max-content;">
     <div class="content p-4 px-2">
         <div class="header-title text-start">
-            <span class="fw-bold fs-6 text-secondary">INPUT MATERIAL</span>
+            <span class="fw-bold fs-6 text-secondary">MATERIAL</span>
         </div>
         <hr>
         <div class="form-content mt-0">
@@ -74,7 +74,8 @@
                         </div>
                     </div>
                     <div class="col-lg-3 d-flex align-items-center justify-content-start">
-                        <button type="button" class="btn btn-sm btn-primary" id="sub_serial"><i class="fas fa-plus fs-7"></i></button>
+                        <button type="button" class="btn btn-sm btn-primary me-2" id="sub_serial" form="serial"><i class="fas fa-plus fs-7"></i></button>
+                        <button type="button" class="btn btn-sm btn-warning" id="tbl_res"><i class="fas fa-refresh fs-7"></i></button>
                     </div>
                 </div>
             </form>
@@ -83,8 +84,9 @@
             <table class="table table-responsive table-hover table-striped table-bordered w-100" id="tbl_prod">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        <th style="width: 50px;">No</th>
                         <th>Serial Number</th>
+                        <th style="width: 75px; text-align: center;">#</th>
                     </tr>
                 </thead>
                 <tbody id="tbl_body">
@@ -99,22 +101,101 @@
         }
     </style>
     <script>
+        function resetTable() {
+            $('#tbl_prod tbody tr').remove();
+        }
+
+        function appendTable() {
+            var tbl = document.getElementById('tbl_body');
+            var previx = $('#previx').val(),
+                serialnum = $('#serialnum').val(),
+                startnum = parseInt($('#startnum').val()),
+                qty = parseInt($('#qty').val());
+
+            if (serialnum != '' && previx != '') {
+                if ($("#sub_serial").attr('form') == 'serial') {
+                    $('#tbl_body').append(
+                        '<tr>\
+                            <td>' + (tbl.rows.length + 1) + '</td>\
+                            <td>' + serialnum + '</td>\
+                            <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
+                        </tr>\
+                    '
+                    );
+                    $('#serialnum').val("");
+                } else if ($("#sub_serial").attr('form') == 'previx') {
+                    var sum = startnum + qty;
+                    for (var i = sum; startnum <= sum; startnum++) {
+                        $('#tbl_body').append(
+                            '<tr>\
+                                <td>' + (tbl.rows.length + 1) + '</td>\
+                                <td>' + previx + startnum + '</td>\
+                                <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
+                            </tr>\
+                        '
+                        );
+                    }
+                    $.notify('Append ' + String(tbl.rows.length) + ' data to table', 'success');
+                } else {
+                    $.notify('Invalid Button Type', 'warn');
+                }
+            } else {
+                $.notify('Serial Number required', 'warn');
+            }
+            $('.btndel').each(function() {
+                $(this).on('click', function() {
+                    $(this).closest('tr').remove();
+                })
+            });
+        }
+
+        $('#tbl_res').on('click', function() {
+            resetTable();
+        })
+
         $('#sub_all').on('click', function() {
             var link = '<?= base_url('prod/data') ?>',
+                tbl_data = [],
                 data = $('#formproduct').serialize();
+
+            var tbl_data = [];
+            $('#tbl_prod tr').each(function(row, tr) {
+                if ($(tr).find('td:eq(1)').text() == "") {
+                    // Table Empty
+                } else {
+                    var sub = {
+                        'serial': $(tr).find('td:eq(1)').text(),
+                    };
+                    tbl_data.push(sub);
+                }
+            });
 
             $.ajax({
                 url: link,
                 type: 'post',
                 dataType: 'json',
-                data: data,
+                data: {
+                    idp: $('#idp').val(),
+                    ordernum: $('#ordernum').val(),
+                    orderdate: $('#orderdate').val(),
+                    mater: $('#mater').val(),
+                    batch: $('#batch').val(),
+                    loc: $('#loc').val(),
+                    profcenter: $('#profcenter').val(),
+                    serialnum: $('#serialnum').val(),
+                    previx: $('#previx').val(),
+                    startnum: $('#startnum').val(),
+                    qty: $('#qty').val(),
+                    tbl: tbl_data,
+                },
                 success: function(res) {
                     if (res.success == 1) {
-                        $.notify(res.num, 'success');
+                        $.notify(res.msg, 'success');
                     } else {
                         $.notify(res.msg, 'warn');
                     }
                     $('#formproduct')[0].reset();
+                    resetTable();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $.notify(thrownError, "error");
@@ -123,38 +204,14 @@
         });
 
         $('#sub_serial').on('click', function() {
-            $.notify("samlekom", 'error');
-            var previx = $('#previx').val(),
-                serialnum = $('#serialnum').val(),
-                startnum = $('#startnum').val(),
-                qty = $('#qty').val();
-
-            if ($(this).attr('form') == 'serial') {
-                $('#tbl_body').append(
-                    '<tr>\
-                    <td>No</td>\
-                    <td>' + serialnum + '</td>\
-                </tr>\
-                '
-                );
-                $('#serialnum').val("");
-            } else if ($(this).attr('form') == 'previx') {
-                for (startnum; startnum < qty; startnum++) {
-                    $('#tbl_body').append(
-                        '<tr>\
-                        <td>No</td>\
-                        <td>' + previx + startnum + '</td>\
-                        </tr>\
-                        '
-                    );
-                }
-                $('#previx').val("");
-                $('#startnum').val("");
-                $('#qty').val("");
-            } else {
-                $.notify('Serial Number Required', 'warn');
-            }
+            appendTable();
         });
+
+        $('#serialnum').keydown(function(e) {
+            if (e.keyCode == 13) {
+                appendTable();
+            }
+        })
 
         $('#types').change(function() {
             var type = $(this).val(),

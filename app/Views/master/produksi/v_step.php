@@ -20,7 +20,7 @@
         </li>
     </ul>
 
-    <div class="tab-content w-100 mt-0" style="height: max-content;">
+    <div class="tab-content w-100 mt-0">
         <div id="#form" class="tab-pane" role="tabpanel">
             <?= $this->include('master/produksi/v_form') ?>
         </div>

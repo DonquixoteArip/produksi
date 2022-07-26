@@ -7,6 +7,7 @@ use App\Helpers\Datatables\Datatables;
 use App\Models\Msproduct;
 use App\Models\MsProductionSn;
 use DateTime;
+use Exception;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class Product extends BaseController
@@ -16,6 +17,28 @@ class Product extends BaseController
         $this->date = new DateTime('now');
         $this->prod = new Msproduct();
         $this->sn = new MsProductionSn();
+    }
+
+    public function datatable()
+    {
+        $datatables = Datatables::method([Msproduct::class, 'getAll'], 'searchable')
+            ->setParams(1, 'satu')
+            ->make();
+
+        $datatables->updateRow(function ($db, $no) {
+            return [
+                $no,
+                date('d F Y', strtotime($db->orderdate)),
+                $db->batchnumber,
+                $db->serialnumber,
+                "
+                <button type='button' class='btn btn-sm btn-warning me-2' onclick=\"editDt('" . $db->id . "', '" . base_url('prod/edit') . "', 'Update')\"><i class='fas fa-pencil fs-7'></i></button>
+                <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-trash fs-7'></i></button>
+                "
+            ];
+        });
+
+        $datatables->toJson();
     }
 
     public function types()
@@ -51,38 +74,22 @@ class Product extends BaseController
         }
     }
 
-    public function datatable()
-    {
-        $datatables = Datatables::method([Msproduct::class, 'getAll'], 'searchable')
-            ->setParams(1, 'satu')
-            ->make();
-        $datatables->updateRow(function ($db, $no) {
-            return [
-                $no,
-                $db->serialnum,
-                "
-                <button type='button' class='btn btn-sm btn-warning' onclick=\"editData('" . $db->pid . "', 'Update', '" . base_url('prod/editViews') . "')\"><i class='fas fa-pencil fs-7'></i></button>
-                <button type='button' class='btn btn-sm btn-danger' onclick=\"hapusModal('Produksi', 'Are you sure want to delete this data?', '" . $db->pid . "', 'modal-md', '" . base_url('prod/delete') . "', 'Delete')\"><i class='fas fa-trash fs-7'></i></button>
-                "
-            ];
-        });
-
-        $datatables->toJson();
-    }
-
     public function forms()
     {
         $id = $this->request->getPost('id');
         $q = $this->prod->getOne($id);
-        if ($q) {
-            $res = [
-                'pid' => $q['pid'],
-                'productname' => $q['pname'],
-                'partnum' => $q['partnum'],
-                'serialnum' => $q['serialnum'],
+        if ($id) {
+            $data = [
+                'ordernum' => $q['ordernumber'],
+                'orderdate' => $q['orderdate'],
+                'pid' => $q['productid'],
+                'batch' => $q['batchnumber'],
+                'loc' => $q['location'],
+                'profcenter' => $q['profcenter'],
+                'serialnum' => $this->sn->getOne($id),
             ];
         }
-        echo json_encode($res);
+        echo json_encode($data);
     }
 
     public function process()
@@ -95,44 +102,62 @@ class Product extends BaseController
         $batch = $this->request->getPost('batch');
         $loc = $this->request->getPost('loc');
         $profcenter = $this->request->getPost('profcenter');
-        $sn = $this->request->getPost('serialnum');
         $previx = $this->request->getPost('previx');
-        $startnum = $this->request->getPost('startnum');
-        $qty = $this->request->getPost('qty');
+        $dtTable = $this->request->getPost('tbl');
 
         if ($id != '') {
             // Edit Data
+            $res = [
+                'success' => 1,
+                'msg' => 'Selamat Hari Raya',
+            ];
         } else {
             // Add Data
-            $data = [
-                'productid' => $material,
-                'ordernumber' => $ordernum,
-                'orderdate' => $orderdate,
-                'batchnumber' => $batch,
-                'location' => $loc,
-                'profcenter' => $profcenter,
-                'createddate' => date('Y-m-d H:i:s'),
-                'createdby' => session()->get('id_user'),
-            ];
-            $q = $this->prod->tambah($data);
-            if ($q) {
-                if ($previx != '') {
-                    // many data
-                } else {
-                    $dtserial = [
-                        'headerid' => db_connect()->insertID(),
-                        'serialnumber' => $sn,
-                    ];
-                    $this->sn->tambah($dtserial);
-                }
-                $res = [
-                    'success' => 1,
-                    'msg' => 'New Data Added',
+            if ($ordernum != '') {
+                $data = [
+                    'productid' => $material,
+                    'ordernumber' => $ordernum,
+                    'orderdate' => $orderdate,
+                    'batchnumber' => $batch,
+                    'location' => $loc,
+                    'profcenter' => $profcenter,
+                    'createddate' => date('Y-m-d H:i:s'),
+                    'createdby' => session()->get('id_user'),
                 ];
+                $q = $this->prod->tambah($data);
+                $idt = db_connect()->insertID();
+                if ($q) {
+                    if ($previx != '') {
+                        for ($a = 0; $a < count($dtTable); $a++) {
+                            $data = [
+                                'headerid' => $idt,
+                                'serialnumber' => $dtTable[$a],
+                            ];
+                            $this->sn->tambah($data);
+                        }
+                    } else {
+                        for ($a = 0; $a < count($dtTable); $a++) {
+                            $dtserial = [
+                                'headerid' => $idt,
+                                'serialnumber' => $dtTable[$a],
+                            ];
+                            $this->sn->tambah($dtserial);
+                        }
+                    }
+                    $res = [
+                        'success' => 1,
+                        'msg' => 'New Data Added',
+                    ];
+                } else {
+                    $res = [
+                        'success' => 0,
+                        'msg' => 'Data not added',
+                    ];
+                }
             } else {
                 $res = [
                     'success' => 0,
-                    'msg' => 'Data not added',
+                    'msg' => 'Data Required',
                 ];
             }
         }

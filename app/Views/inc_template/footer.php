@@ -22,8 +22,11 @@
 
 </html>
 <script>
-    function editData(id, btntxt, link) {
-        $('#btn-sub').html(btntxt);
+    var tbl = document.getElementById('tbl_body');
+
+    function editDt(id, link, btntxt) {
+        $('#smartwizard').smartWizard('goToStep', 0);
+        $('#sub_all').html(btntxt);
         $.ajax({
             url: link,
             type: 'post',
@@ -32,15 +35,37 @@
                 id: id,
             },
             success: function(res) {
-                $('#idp').val(res.pid);
-                $('#prod').val(res.productname);
-                $('#partnum').val(res.partnum);
-                $('#serialnum').val(res.serialnum);
+                $('#idp').val(id);
+                $('#ordernum').val(res.ordernum);
+                $('#mater').val(res.pid);
+                $('#batch').val(res.batch);
+                $('#loc').val(res.loc);
+                $('#profcenter').val(res.profcenter);
+                var d = new Date(res.orderdate);
+                var format = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
+                $('#orderdate').val(format);
+
+                for (var i = 0; i <= res.serialnum.length; i++) {
+                    $('#tbl_body').append(
+                        '<tr>\
+                            <td>' + (i + 1) + '</td>\
+                            <td>' + res.serialnum[i].serialnumber + '</td>\
+                            <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
+                        </tr>\
+                        '
+                    );
+                }
+                $('.btndel').each(function() {
+                    $(this).on('click', function() {
+                        $(this).closest('tr').remove();
+                    })
+                });
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                $.notify(thrownError, "error");
+                $.notify(thrownError, 'error');
             }
-        })
+        });
+
     }
 
     function hapusModal(title, msg, id, size, link, btntxt) {
@@ -52,29 +77,6 @@
         $('#delbtn').html(btntxt);
         $('#delmodal').modal('toggle');
     }
-
-    $('#btn-sub').on('click', function() {
-        var link = '<?= base_url('prod/data') ?>',
-            data = $('#formproduct').serialize();
-
-        $.ajax({
-            url: link,
-            type: 'post',
-            dataType: 'json',
-            data: data,
-            success: function(res) {
-                if (res.success == 1) {
-                    $.notify(res.msg, "success");
-                } else {
-                    $.notify(res.msg, "error");
-                }
-                table.ajax.reload();
-                $('#formproduct')[0].reset();
-                $('#btn-sub').html('Add');
-                $('#idp').val('');
-            }
-        })
-    });
 
     $('#delbtn').on('click', function() {
         var id = $('#delid').val(),
@@ -126,7 +128,7 @@
         }
     })
 
-    $('#smartwizard').smartWizard({
+    var wizard = $('#smartwizard').smartWizard({
         theme: 'dots',
         justified: true,
         keyboard: {

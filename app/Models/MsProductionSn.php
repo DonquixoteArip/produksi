@@ -18,4 +18,12 @@ class MsProductionSn extends Model
     {
         return $this->builder->insert($data);
     }
+
+    public function getOne($id)
+    {
+        return $this->builder
+            ->select('sn.serialnumber')
+            ->where('sn.headerid', $id)
+            ->get()->getResultArray();
+    }
 }
