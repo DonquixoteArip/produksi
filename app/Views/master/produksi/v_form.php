@@ -1,7 +1,10 @@
 <div class="container bg-white shadow-sm rounded border-0 mb-4" style="height: max-content;">
     <div class="content p-4 px-2">
-        <div class="header-title text-start">
-            <span class="fw-bold fs-6 text-primary">MATERIAL</span>
+        <div class="d-flex justify-content-between">
+            <div class="header-title text-start">
+                <span class="fw-bold fs-6 text-primary">MATERIAL</span>
+            </div>
+            <button type="button" class="btn btn-primary" style="width: 150px;" id="sub_all">Save</button>
         </div>
         <hr>
         <div class="form-content mt-0">
@@ -20,9 +23,7 @@
                             <input type="date" class="form-control form-control-sm" name="orderdate" id="orderdate">
                         </div>
                     </div>
-                    <div class="col-lg-4 d-flex align-items-center justify-content-end">
-                        <button type="button" class="btn w-50 btn-primary" id="sub_all">Save</button>
-                    </div>
+
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
