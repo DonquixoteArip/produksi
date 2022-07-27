@@ -43,13 +43,15 @@ $routes->add('logout', 'login\Login::logout');
 
 // Index Home
 $routes->add('product', 'master\Produksi::index');
-$routes->add('product/process', 'master\Produksi::showTxt');
 
 // Datatables
 $routes->add('prod/table', 'master\Product::datatable');
 
 // Product
 $routes->add('prod/type', 'master\Product::types');
+$routes->add('prod/load', 'master\Product::load');
+$routes->add('prod/compare', 'master\Produksi::compare');
+$routes->add('prod/count', 'master\Product::count');
 $routes->add('prod/data', 'master\Product::process');
 $routes->add('prod/addser', 'master\Product::serialAdd');
 $routes->add('prod/edit', 'master\Product::forms');

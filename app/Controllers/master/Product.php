@@ -7,7 +7,6 @@ use App\Helpers\Datatables\Datatables;
 use App\Models\Msproduct;
 use App\Models\MsProductionSn;
 use DateTime;
-use Exception;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class Product extends BaseController
@@ -92,6 +91,30 @@ class Product extends BaseController
         echo json_encode($data);
     }
 
+    public function count()
+    {
+        echo $this->prod->count();
+    }
+
+    public function load()
+    {
+        $query = $this->prod->getData();
+        foreach ($query as $q) {
+            echo "
+            <div class='col-lg-4 pb-3 px-2 text-center'>
+                <div class='card bg-secondary bg-opacity-75 elem_compare' id='" . $q['serialnumber'] . "'>
+                    <a href='#' class='text-decoration-none text-secondary'>
+                        <div class='card-body'>
+                            <span class='fs-7 text-white'>" . $q['serialnumber'] . "</span>
+                        </div>
+                    </a>
+                </div>
+                <label class='fs-7set fw-semibold text-secondary'>" . $q['ordernumber'] . "</label>
+            </div>
+            ";
+        }
+    }
+
     public function process()
     {
         $res = array();
@@ -113,7 +136,7 @@ class Product extends BaseController
             ];
         } else {
             // Add Data
-            if ($ordernum != '') {
+            if ($ordernum != '' && $orderdate != '' && $material != '' && $batch != '') {
                 $data = [
                     'productid' => $material,
                     'ordernumber' => $ordernum,

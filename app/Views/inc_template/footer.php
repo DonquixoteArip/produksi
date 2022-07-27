@@ -44,7 +44,7 @@
                 var d = new Date(res.orderdate);
                 var format = d.getFullYear() + '-' + ("0" + (d.getMonth() + 1)).slice(-2) + '-' + ("0" + d.getDate()).slice(-2);
                 $('#orderdate').val(format);
-
+                $('#tbl_body tr').remove();
                 for (var i = 0; i <= res.serialnum.length; i++) {
                     $('#tbl_body').append(
                         '<tr>\
@@ -103,30 +103,6 @@
             }
         })
     });
-
-    // V_produk
-    $('#btn-prod').on('click', function() {
-        var link = '<?= base_url('product/process') ?>',
-            direct = $('#directory').val();
-
-        if (direct != '') {
-            $.ajax({
-                url: link,
-                type: 'post',
-                data: {
-                    direct: direct
-                },
-                success: function(res) {
-                    $('#filProd').html(res);
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    $.notify(thrownError, "error");
-                }
-            })
-        } else {
-            $.notify('Directory Not Found');
-        }
-    })
 
     var wizard = $('#smartwizard').smartWizard({
         theme: 'dots',

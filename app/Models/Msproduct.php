@@ -24,6 +24,30 @@ class Msproduct extends Model
         ];
     }
 
+    public function count()
+    {
+        return $this->builder
+            ->select('p.id, p.orderdate, p.ordernumber, p.batchnumber, ps.serialnumber')
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->countAllResults();
+    }
+
+    public function getCompare($value)
+    {
+        return $this->builder
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->where('ps.serialnumber', $value)
+            ->get()->getResultArray();
+    }
+
+    public function getData()
+    {
+        return $this->builder
+            ->select('p.id, p.orderdate, p.ordernumber, p.batchnumber, ps.serialnumber')
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->get()->getResultArray();
+    }
+
     public function getAll($param, $text)
     {
         return $this->builder

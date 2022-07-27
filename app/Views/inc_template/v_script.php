@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="<?= base_url('public/assets/css/datatable.css') ?>">
 <link rel="stylesheet" href="<?= base_url('public/assets/css/style.css') ?>">
 <link rel="stylesheet" href="<?= base_url('public/assets/css/wizard.css') ?>">
+<link rel="stylesheet" href="<?= base_url('public/assets/css/select2.min.css') ?>">
 
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -16,3 +17,4 @@
 <script src="<?= base_url('public/assets/js/misc.js') ?>"></script>
 <script src="<?= base_url('public/assets/js/notify.js') ?>"></script>
 <script src="<?= base_url('public/assets/js/wizard.js') ?>"></script>
+<script src="<?= base_url('public/assets/js/select2.min.js') ?>"></script>

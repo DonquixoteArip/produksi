@@ -3,12 +3,15 @@
 namespace App\Controllers\master;
 
 use App\Controllers\BaseController;
+use App\Models\Msproduct;
+use CodeIgniter\Database\Query;
 
 class Produksi extends BaseController
 {
     public function __construct()
     {
         helper('form');
+        $this->prod = new Msproduct();
     }
 
     public function index()
@@ -23,34 +26,29 @@ class Produksi extends BaseController
         }
     }
 
-    public function showTxt()
+    public function compare()
     {
-        $dir    = $this->request->getPost('direct');
+        $dir    = 'D:\haho';
         $files = array_diff(scandir($dir, 1), ['..', '.']);
+        $data = array();
 
         if ($files > 0) {
             foreach ($files as $f) {
                 $myfile = fopen(str_replace(" ", "", "$dir\ $f"), "r") or die("Unable to open file!");
                 if (filesize(str_replace(" ", "", "$dir\ $f")) > 0) {
-                    echo "
-                    <div class='col-lg-4 pb-3 px-2 text-center'>
-                        <div class='card bg-success bg-opacity-75'>
-                            <a href='#' class='text-decoration-none text-secondary'>
-                                <div class='card-body'>
-                                    <span class='fs-7 text-white'>" . fread($myfile, filesize(str_replace(" ", "", "$dir\ $f"))) . "</span>
-                                </div>
-                            </a>
-                        </div>
-                        <label class='fs-7set fw-semibold text-secondary'>$f</label>
-                    </div>
-                    ";
-                } else {
-                    echo "Found file with empty data";
+                    $res = $this->prod->getCompare(fread($myfile, filesize(str_replace(" ", "", "$dir\ $f"))));
+                    if ($res != '') {
+                        $data[] = array('data' => $res);
+                    } else {
+                        $rest = fread($myfile, filesize(str_replace(" ", "", "$dir\ $f")));
+                        $data[] = array(
+                            'data' => $rest,
+                        );
+                    }
                 }
                 fclose($myfile);
             }
-        } else {
-            echo "There is no data in this directory";
         }
+        echo json_encode($data);
     }
 }
