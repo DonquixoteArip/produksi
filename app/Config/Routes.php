@@ -62,6 +62,7 @@ $routes->add('prod/folder', 'master\Produksi::saveComp');
 $routes->add('product', 'master\Product::index');
 $routes->add('product/form', 'master\Product::formViews');
 $routes->add('product/add', 'master\Product::process');
+$routes->add('product/delete', 'master\Product::delete');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -47,6 +47,6 @@ class Msproduct extends Model
 
     public function hapus($id)
     {
-        return $this->builder->delete(['ps.productid' => $id]);
+        return $this->builder->delete(['pro.productid' => $id]);
     }
 }

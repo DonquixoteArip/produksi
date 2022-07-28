@@ -70,10 +70,9 @@
         $.ajax({
             url: link,
             type: 'post',
-            // dataType: 'json',
+            dataType: 'json',
             success: function(res) {
-                console.log(res);
-                // $('#load-img').
+                console.log(res.data);
                 // if (res.length == '') {
                 //     $.notify('File not found', 'warn');
                 // } else {
@@ -122,7 +121,7 @@
                 // }
             },
             error: function(xhr, ajaxOptions, thrownError) {
-                $.notify('Salah', 'error');
+                $.notify(thrownError, 'error');
             }
         })
 

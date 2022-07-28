@@ -61,7 +61,7 @@
                         $("#alert-msg").removeClass("alert alert-fill-danger");
                         $("#alert-msg").addClass("alert alert-fill-success").html("<i class='fas fa-info-circle fs-6 text-white me-2'></i>" + res.msg);
                         setTimeout(() => {
-                            window.location.href = '<?= base_url('product') ?>';
+                            window.location.href = '<?= base_url('prod') ?>';
                         }, 1000);
                     } else {
                         $("#alert-msg")

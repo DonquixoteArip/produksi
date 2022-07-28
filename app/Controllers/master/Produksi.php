@@ -6,10 +6,7 @@ use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
 use App\Models\Msproduction;
 use App\Models\MsProductionSn;
-use CodeIgniter\Database\Query;
 use DateTime;
-
-use function PHPUnit\Framework\equalTo;
 
 class Produksi extends BaseController
 {
@@ -210,12 +207,7 @@ class Produksi extends BaseController
         $data = array();
 
         foreach ($files as $f) {
-            if (pathinfo($f, PATHINFO_EXTENSION) != 'txt') {
-                $open = fopen(str_replace(" ", "", "$dir\ $f"), 'r');
-                $size = filesize(str_replace(" ", "", "$dir\ $f"));
-            }
-            $read = fread($open, $size);
-            echo $read;
+            echo (pathinfo(str_replace(" ", "", "$dir\ $f"), PATHINFO_EXTENSION) != 'txt');
         }
         // if ($files > 0) {
         //     foreach ($files as $f) {

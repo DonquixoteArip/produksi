@@ -45,7 +45,7 @@ class Product extends BaseController
                 $db->productname,
                 "
                     <button type='button' class='btn btn-sm btn-warning' onclick=\"editProd('" . $db->productid . "', '" . base_url('product/process') . "', 'Update Product','Update')\"><i class='fas fa-pencil fs-7'></i></button>
-                    <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-trash fs-7'></i></button>
+                    <button type='button' class='btn btn-sm btn-danger' onclick=\"hapusModal('Delete Product', 'Are you sure want to delete this product?', '" . $db->productid . "', 'modal-md', '" . base_url('product/delete') . "', 'Delete')\"><i class='fas fa-trash fs-7'></i></button>
                     "
             ];
         });
@@ -137,13 +137,13 @@ class Product extends BaseController
         echo json_encode($res);
     }
 
-    public function hapus()
+    public function delete()
     {
         $id = $this->request->getPost('id');
         if ($id != '') {
             $one = $this->p->getOne($id);
             if (file_exists('public/product_img/' . $one['image'])) {
-                unlink('public/product_img' . $one['image']);
+                unlink('public/product_img/' . $one['image']);
             }
             $q = $this->p->hapus($id);
             if ($q) {
@@ -154,9 +154,11 @@ class Product extends BaseController
             } else {
                 $res = [
                     'success' => 0,
-                    'msg' => 'Err',
+                    'msg' => 'Data not deleted',
                 ];
             }
         }
+
+        echo json_encode($res);
     }
 }
