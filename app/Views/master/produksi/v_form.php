@@ -106,7 +106,6 @@
         .select2-results__option,
         .select2-selection__rendered {
             font-size: 12px;
-            font-weight: 600;
         }
 
         .select2-container .select2-selection--single {
@@ -115,6 +114,11 @@
             padding-left: 2px !important;
             vertical-align: middle;
             padding-top: 5px;
+        }
+
+        .select2-selection__arrow {
+            margin-top: 5px;
+            margin-right: 8px;
         }
     </style>
     <script>
@@ -131,6 +135,8 @@
         function appendTable() {
             var tbl = document.getElementById('tbl_body');
             var previx = $('#previx').val(),
+                msg = '',
+                tbl_dt = [],
                 serialnum = $('#serialnum').val(),
                 startnum = parseInt($('#startnum').val()),
                 qty = parseInt($('#qty').val());
@@ -164,6 +170,7 @@
             } else {
                 $.notify('Serial Number required', 'warn');
             }
+
             $('.btndel').each(function() {
                 $(this).on('click', function() {
                     $(this).closest('tr').remove();
@@ -190,12 +197,13 @@
         $('#sub_all').on('click', function(ev) {
             var link = '<?= base_url('prod/data') ?>',
                 tbl_data = [],
+                msg = '',
                 data = $('#formproduct').serialize();
 
             var tbl_data = [];
             $('#tbl_prod tr').each(function(row, tr) {
                 if ($(tr).find('td:eq(1)').text() == "") {
-                    // Table Empty
+                    // if null
                 } else {
                     var sub = {
                         'serial': $(tr).find('td:eq(1)').text(),
@@ -203,6 +211,8 @@
                     tbl_data.push(sub);
                 }
             });
+
+            $.notify(msg, 'warn');
 
             $.ajax({
                 url: link,
@@ -242,32 +252,27 @@
         });
 
         $('#sub_serial').on('click', function() {
-            $('#tbl_prod tr').each(function(row, tr) {
-                if ($(tr).find('td:eq(1)').text() == $('#serialnum').val()) {
-                    msg = "Can't duplicate Serial Number";
-                } else {
-                    appendTable();
-                }
-            });
-            setTimeout(() => {
-                $.notify(msg, 'warn');
-            }, 100);
-            $('#serialnum').val("");
+            if ($('#serialnum').val() != '') {
+                appendTable();
+                setTimeout(() => {
+                    $('#serialnum').val("");
+                }, 100);
+            } else {
+                $.notify('Serial Number required', 'warn');
+            }
         });
 
         $('#serialnum').keydown(function(e) {
             if (e.keyCode == 13) {
-                $('#tbl_prod tr').each(function(row, tr) {
-                    if ($(tr).find('td:eq(1)').text() == $('#serialnum').val()) {
-                        msg = "Can't duplicate Serial Number";
-                    } else {
-                        appendTable();
-                    }
-                });
-                setTimeout(() => {
-                    $.notify(msg, 'warn');
-                }, 100);
-                $('#serialnum').val("");
+                if ($(this).val() != '') {
+                    appendTable();
+                    // setTimeout(() => {
+                    //     $.notify(msg, 'warn');
+                    // }, 100);
+                    $('#serialnum').val("");
+                } else {
+                    $.notify('Serial Number required', 'warn');
+                }
             }
         })
 

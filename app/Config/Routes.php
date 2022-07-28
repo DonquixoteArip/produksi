@@ -42,20 +42,26 @@ $routes->add('login/auth', 'login\Login::auth');
 $routes->add('logout', 'login\Login::logout');
 
 // Index Home
-$routes->add('product', 'master\Produksi::index');
+$routes->add('prod', 'master\Produksi::index');
 
 // Datatables
-$routes->add('prod/table', 'master\Product::datatable');
+$routes->add('prod/table', 'master\Produksi::datatable');
+$routes->add('product/datatabel', 'master\Product::datatables');
+
+// Produksi
+$routes->add('prod/type', 'master\Produksi::types');
+$routes->add('prod/load', 'master\Produksi::load');
+$routes->add('prod/compare', 'master\Produksi::compare');
+$routes->add('prod/count', 'master\Produksi::count');
+$routes->add('prod/data', 'master\Produksi::process');
+$routes->add('prod/addser', 'master\Produksi::serialAdd');
+$routes->add('prod/edit', 'master\Produksi::forms');
+$routes->add('prod/folder', 'master\Produksi::saveComp');
 
 // Product
-$routes->add('prod/type', 'master\Product::types');
-$routes->add('prod/load', 'master\Product::load');
-$routes->add('prod/compare', 'master\Produksi::compare');
-$routes->add('prod/count', 'master\Product::count');
-$routes->add('prod/data', 'master\Product::process');
-$routes->add('prod/addser', 'master\Product::serialAdd');
-$routes->add('prod/edit', 'master\Product::forms');
-
+$routes->add('product', 'master\Product::index');
+$routes->add('product/form', 'master\Product::formViews');
+$routes->add('product/add', 'master\Product::process');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

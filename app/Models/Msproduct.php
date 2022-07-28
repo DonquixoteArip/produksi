@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class Msproduct extends Model
 {
-    protected $table = "productionorder as p";
+    protected $table = "msproduct as pro";
 
     public function __construct()
     {
@@ -18,53 +18,35 @@ class Msproduct extends Model
     {
         return [
             null,
-            null,
-            "serialnumber",
-            null,
+            "pro.partnumber",
+            "pro.productname",
         ];
-    }
-
-    public function count()
-    {
-        return $this->builder
-            ->select('p.id, p.orderdate, p.ordernumber, p.batchnumber, ps.serialnumber')
-            ->join('productionordersn as ps', 'p.id = ps.headerid')
-            ->countAllResults();
-    }
-
-    public function getCompare($value)
-    {
-        return $this->builder
-            ->join('productionordersn as ps', 'p.id = ps.headerid')
-            ->where('ps.serialnumber', $value)
-            ->get()->getResultArray();
-    }
-
-    public function getData()
-    {
-        return $this->builder
-            ->select('p.id, p.orderdate, p.ordernumber, p.batchnumber, ps.serialnumber')
-            ->join('productionordersn as ps', 'p.id = ps.headerid')
-            ->get()->getResultArray();
     }
 
     public function getAll($param, $text)
     {
-        return $this->builder
-            ->select('p.id, p.orderdate, p.batchnumber, ps.serialnumber')
-            ->join('productionordersn as ps', 'p.id = ps.headerid');
+        return $this->builder;
     }
 
     public function getOne($id)
     {
         return $this->builder
-            ->select('p.id, p.ordernumber, p.productid, p.orderdate, p.profcenter, p.batchnumber, p.location')
-            ->where('p.id', $id)
+            ->where('pro.productid', $id)
             ->get()->getRowArray();
     }
 
     public function tambah($data)
     {
         return $this->builder->insert($data);
+    }
+
+    public function edit($data, $id)
+    {
+        return $this->builder->update($data, ['pro.productid' => $id]);
+    }
+
+    public function hapus($id)
+    {
+        return $this->builder->delete(['ps.productid' => $id]);
     }
 }

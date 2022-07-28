@@ -5,6 +5,7 @@ namespace App\Controllers\master;
 use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
 use App\Models\Msproduct;
+use App\Models\Msproduction;
 use App\Models\MsProductionSn;
 use DateTime;
 use Picqer\Barcode\BarcodeGeneratorHTML;
@@ -14,11 +15,24 @@ class Product extends BaseController
     public function __construct()
     {
         $this->date = new DateTime('now');
-        $this->prod = new Msproduct();
+        $this->p = new Msproduct();
+        $this->prod = new Msproduction();
         $this->sn = new MsProductionSn();
     }
 
-    public function datatable()
+    public function index()
+    {
+        if (session()->get('id_user') != '') {
+            $data = [
+                'title' => 'Data Product',
+            ];
+            return view('master/product/v_product', $data);
+        } else {
+            return redirect()->to('login');
+        }
+    }
+
+    public function datatables()
     {
         $datatables = Datatables::method([Msproduct::class, 'getAll'], 'searchable')
             ->setParams(1, 'satu')
@@ -27,164 +41,122 @@ class Product extends BaseController
         $datatables->updateRow(function ($db, $no) {
             return [
                 $no,
-                date('d F Y', strtotime($db->orderdate)),
-                $db->batchnumber,
-                $db->serialnumber,
+                $db->partnumber,
+                $db->productname,
                 "
-                <button type='button' class='btn btn-sm btn-warning me-2' onclick=\"editDt('" . $db->id . "', '" . base_url('prod/edit') . "', 'Update')\"><i class='fas fa-pencil fs-7'></i></button>
-                <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-trash fs-7'></i></button>
-                "
+                    <button type='button' class='btn btn-sm btn-warning' onclick=\"editProd('" . $db->productid . "', '" . base_url('product/process') . "', 'Update Product','Update')\"><i class='fas fa-pencil fs-7'></i></button>
+                    <button type='button' class='btn btn-sm btn-danger'><i class='fas fa-trash fs-7'></i></button>
+                    "
             ];
         });
 
         $datatables->toJson();
     }
 
-    public function types()
+    public function formViews()
     {
-        $type = $this->request->getPost('type');
-
-        if ($type == 1) {
-            echo "
-                <div class='form-group'>
-                    <label class='fw-semibold fs-7'>Serial Number</label>
-                    <input type='text' class='form-control form-control-sm' name='serialnum' id='serialnum' placeholder='Serial Number'>
-                </div>
-            ";
-        } else if ($type == 2) {
-            echo "
-                <div class='form-group'>
-                    <div class='row'>
-                        <div class='col-lg-4'>
-                            <label class='fw-semibold fs-7'>Previx</label>
-                            <input type='text' class='form-control form-control-sm' name='previx' id='previx' placeholder='Previx'>
-                        </div>
-                        <div class='col-lg-4'>
-                            <label class='fw-semibold fs-7'>Start</label>
-                            <input type='text' class='form-control form-control-sm' name='startnum' id='startnum' placeholder='Start Number'>
-                        </div>
-                        <div class='col-lg-4'>
-                            <label class='fw-semibold fs-7'>QTY</label>
-                            <input type='text' class='form-control form-control-sm' name='qty' id='qty' placeholder='Quantity'>
-                        </div>
-                    </div>
-                </div>
-            ";
-        }
-    }
-
-    public function forms()
-    {
+        $data = array();
         $id = $this->request->getPost('id');
-        $q = $this->prod->getOne($id);
-        if ($id) {
-            $data = [
-                'ordernum' => $q['ordernumber'],
-                'orderdate' => $q['orderdate'],
-                'pid' => $q['productid'],
-                'batch' => $q['batchnumber'],
-                'loc' => $q['location'],
-                'profcenter' => $q['profcenter'],
-                'serialnum' => $this->sn->getOne($id),
+        if ($id != '') {
+            $q = $this->p->getOne($id);
+            $dt = [
+                'type' => 'edit',
+                'row' => $q,
             ];
+            $data['view'] = view('master/product/v_form', $dt);
+        } else {
+            $dt = [
+                'type' => 'add',
+            ];
+            $data['view'] = view('master/product/v_form', $dt);
         }
+
         echo json_encode($data);
-    }
-
-    public function count()
-    {
-        echo $this->prod->count();
-    }
-
-    public function load()
-    {
-        $query = $this->prod->getData();
-        foreach ($query as $q) {
-            echo "
-            <div class='col-lg-4 pb-3 px-2 text-center'>
-                <div class='card bg-secondary bg-opacity-75 elem_compare' id='" . $q['serialnumber'] . "'>
-                    <a href='#' class='text-decoration-none text-secondary'>
-                        <div class='card-body'>
-                            <span class='fs-7 text-white'>" . $q['serialnumber'] . "</span>
-                        </div>
-                    </a>
-                </div>
-                <label class='fs-7set fw-semibold text-secondary'>" . $q['ordernumber'] . "</label>
-            </div>
-            ";
-        }
     }
 
     public function process()
     {
         $res = array();
         $id = $this->request->getPost('idp');
-        $ordernum = $this->request->getPost('ordernum');
-        $orderdate = $this->request->getPost('orderdate');
-        $material = $this->request->getPost('mater');
-        $batch = $this->request->getPost('batch');
-        $loc = $this->request->getPost('loc');
-        $profcenter = $this->request->getPost('profcenter');
-        $previx = $this->request->getPost('previx');
-        $dtTable = $this->request->getPost('tbl');
+        $name = '';
+        $partnum = $this->request->getPost('partnum');
+        $productname = $this->request->getPost('productname');
+        $productimg = $this->request->getFile('productimg');
+        if ($productimg != '') {
+            if ($partnum != '' && $productname != '') {
+                if ($id == '') {
+                    $name = $productimg->getRandomName();
+                    $productimg->move('public/product_img/', $name);
+                    $data = [
+                        'partnumber' => $partnum,
+                        'productname' => $productname,
+                        'image' => $name,
+                        'createddate' => date('Y-m-d H:i:s'),
+                        'createdby' => session()->get('id_user'),
+                    ];
 
-        if ($id != '') {
-            // Edit Data
-            $res = [
-                'success' => 1,
-                'msg' => 'Selamat Hari Raya',
-            ];
-        } else {
-            // Add Data
-            if ($ordernum != '' && $orderdate != '' && $material != '' && $batch != '') {
-                $data = [
-                    'productid' => $material,
-                    'ordernumber' => $ordernum,
-                    'orderdate' => $orderdate,
-                    'batchnumber' => $batch,
-                    'location' => $loc,
-                    'profcenter' => $profcenter,
-                    'createddate' => date('Y-m-d H:i:s'),
-                    'createdby' => session()->get('id_user'),
-                ];
-                $q = $this->prod->tambah($data);
-                $idt = db_connect()->insertID();
-                if ($q) {
-                    if ($previx != '') {
-                        for ($a = 0; $a < count($dtTable); $a++) {
-                            $data = [
-                                'headerid' => $idt,
-                                'serialnumber' => $dtTable[$a],
-                            ];
-                            $this->sn->tambah($data);
-                        }
+                    $q = $this->p->tambah($data);
+                    if ($q) {
+                        $res = [
+                            'success' => 1,
+                            'msg' => 'New Data Added',
+                        ];
                     } else {
-                        for ($a = 0; $a < count($dtTable); $a++) {
-                            $dtserial = [
-                                'headerid' => $idt,
-                                'serialnumber' => $dtTable[$a],
-                            ];
-                            $this->sn->tambah($dtserial);
-                        }
+                        $res = [
+                            'success' => 0,
+                            'msg' => 'Query Fatal Error',
+                        ];
                     }
+                } else {
+                    $one = $this->p->getOne($id);
+                    if (file_exists('public/product_img/' . $one['image'])) {
+                        unlink('public/product_img/' . $one['image']);
+                    }
+                    $names = $productimg->getRandomName();
+                    $data = [
+                        'partnumber' => $partnum,
+                        'productname' => $productname,
+                        'image' => $names,
+                    ];
+
+                    $productimg->move('public/product_img/', $names);
+                    $this->p->edit($data, $id);
                     $res = [
                         'success' => 1,
-                        'msg' => 'New Data Added',
-                    ];
-                } else {
-                    $res = [
-                        'success' => 0,
-                        'msg' => 'Data not added',
+                        'msg' => 'Updating Data Success',
                     ];
                 }
-            } else {
-                $res = [
-                    'success' => 0,
-                    'msg' => 'Data Required',
-                ];
             }
+        } else {
+            $res = [
+                'success' => 0,
+                'msg' => 'Product Image Required',
+            ];
         }
 
         echo json_encode($res);
+    }
+
+    public function hapus()
+    {
+        $id = $this->request->getPost('id');
+        if ($id != '') {
+            $one = $this->p->getOne($id);
+            if (file_exists('public/product_img/' . $one['image'])) {
+                unlink('public/product_img' . $one['image']);
+            }
+            $q = $this->p->hapus($id);
+            if ($q) {
+                $res = [
+                    'success' => 1,
+                    'msg' => 'Data Deleted',
+                ];
+            } else {
+                $res = [
+                    'success' => 0,
+                    'msg' => 'Err',
+                ];
+            }
+        }
     }
 }
