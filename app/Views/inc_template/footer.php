@@ -60,10 +60,10 @@
             success: function(res) {
                 if (res.success == 1) {
                     $.notify(res.msg, 'success');
+                    $('#crudmodal').modal('toggle');
                 } else {
                     $.notify(res.msg, 'warn');
                 }
-                $('#crudmodal').modal('toggle');
                 table.ajax.reload();
             },
             error: function(xhr, ajaxOptions, thrownError) {

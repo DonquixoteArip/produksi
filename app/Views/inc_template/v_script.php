@@ -11,6 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <script src="<?= base_url('public/assets/js/datatable.js') ?>"></script>
 <script src="<?= base_url('public/assets/js/off-canvas.js') ?>"></script>
 <script src="<?= base_url('public/assets/js/hoverable-collapse.js') ?>"></script>

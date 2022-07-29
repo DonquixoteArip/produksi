@@ -56,7 +56,8 @@ $routes->add('prod/count', 'master\Produksi::count');
 $routes->add('prod/data', 'master\Produksi::process');
 $routes->add('prod/addser', 'master\Produksi::serialAdd');
 $routes->add('prod/edit', 'master\Produksi::forms');
-$routes->add('prod/folder', 'master\Produksi::saveComp');
+$routes->add('prod/result', 'master\Produksi::saveRes');
+$routes->add('prod/prev', 'master\Produksi::getProduct');
 
 // Product
 $routes->add('product', 'master\Product::index');

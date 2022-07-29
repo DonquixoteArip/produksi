@@ -4,8 +4,10 @@ namespace App\Controllers\master;
 
 use App\Controllers\BaseController;
 use App\Helpers\Datatables\Datatables;
+use App\Models\Msproduct;
 use App\Models\Msproduction;
 use App\Models\MsProductionSn;
+use App\Models\Msproductresult;
 use DateTime;
 
 class Produksi extends BaseController
@@ -14,8 +16,10 @@ class Produksi extends BaseController
     {
         helper('form');
         $this->date = new DateTime('now');
+        $this->p = new Msproduct();
         $this->sn = new MsProductionSn();
         $this->prod = new Msproduction();
+        $this->res = new Msproductresult();
     }
 
     public function index()
@@ -23,6 +27,7 @@ class Produksi extends BaseController
         if (session()->get('id_user') != '') {
             $data = [
                 'title' => 'Produksi',
+                'product' => $this->p->getSel2(),
             ];
             return view('master/produksi/v_produksi', $data);
         } else {
@@ -200,42 +205,89 @@ class Produksi extends BaseController
         echo json_encode($res);
     }
 
+    public function getProduct()
+    {
+        $id = $this->request->getPost('id');
+
+        if ($id != '') {
+            $q = $this->p->getOne($id);
+            $data = [
+                'success' => 1,
+                'partnum' => $q['partnumber'],
+                'img' => $q['image'],
+            ];
+        } else {
+            $data = [
+                'success' => 0,
+            ];
+        }
+
+        echo json_encode($data);
+    }
+
     public function compare()
     {
-        $dir    = 'D:\haho';
+        $dir    = 'D:\data';
         $files = array_diff(scandir($dir, 1), ['..', '.']);
         $data = array();
 
-        foreach ($files as $f) {
-            echo (pathinfo(str_replace(" ", "", "$dir\ $f"), PATHINFO_EXTENSION) != 'txt');
+        if ($files > 0) {
+            foreach ($files as $f) {
+                if (filesize(str_replace("_", "", "$dir\_$f")) > 0) {
+                    $file = fopen(str_replace("_", "", "$dir\_$f"), "r") or die('Unable to open file!');
+                    if (pathinfo(str_replace("_", "", "$dir\_$f"), PATHINFO_EXTENSION) != 'txt') {
+                        $data['0'] = array(
+                            'img' => base64_encode(fread($file, filesize(str_replace("_", "", "$dir\_$f")))),
+                            'imgname' => $f,
+                        );
+                    } else {
+                        $txt = fread($file, filesize(str_replace("_", "", "$dir\_$f")));
+                        $q = $this->prod->getCompare($txt);
+                        $data['1'] = array(
+                            'txt' => $txt,
+                            'txtname' => $f,
+                            'serialnum' => (($q ? $q['ids'] : '0')),
+                            'count' => $this->prod->countComp($txt),
+                        );
+                    }
+                    fclose($file);
+                }
+            }
+            echo json_encode($data);
         }
-        // if ($files > 0) {
-        //     foreach ($files as $f) {
-        //         $myfile = fopen(str_replace(" ", "", "$dir\ $f"), "r") or die("Unable to open file!");
-        //         if (filesize(str_replace(" ", "", "$dir\ $f")) > 0) {
-        //             $res = $this->prod->getCompare(fread($myfile, filesize(str_replace(" ", "", "$dir\ $f"))));
-        //             if ($res != '') {
-        //                 $data[] = array(
-        //                     'data' => $res,
-        //                 );
-        //             }
-        //         }
-        //         fclose($myfile);
-        //     }
-        //     echo json_encode($data);
-        // }
     }
 
-    // public function saveComp()
-    // {
-    //     $path = base_url('public/product');
-    //     $date = date('Y-m-d-H:i:s');
+    public function saveRes()
+    {
+        $imgname = $this->request->getPost('imgN');
+        $snid = $this->request->getPost('sid');
+        $status = $this->request->getPost('stats');
+        $txtname = $this->request->getPost('txtn');
 
-    //     $q = mkdir($path . $date, 0777, true);
-    //     if ($q) {
-    //         echo 1;
-    //     } else {
-    //         echo $path . $date;
-    //     }
-    // }
+        mkdir("D:/data-result/" . date('ymd'), 0777, true);
+        // $data = [
+        //     'snid' => $snid,
+        //     'status' => $status,
+        //     'imgfile' => $imgname,
+        //     'txtfile' => $txtname,
+        //     'directory' => 'directory',
+        //     'createddate' => date('Y-m-d H:i:s'),
+        //     'createdby' => session()->get('id_user'),
+        // ];
+
+        // $q = $this->res->tambah($data);
+        // if ($q) {
+        //     $res = [
+        //         'success' => 1,
+        //         'msg' => 'Saving Data',
+        //     ];
+        // } else {
+        //     $res = [
+        //         'success' => 0,
+        //         'msg' => 'Insert Data Failed',
+        //     ];
+        // }
+
+        // echo json_encode($res);
+    }
 }

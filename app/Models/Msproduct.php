@@ -28,6 +28,13 @@ class Msproduct extends Model
         return $this->builder;
     }
 
+    public function getSel2($searchTerm = '')
+    {
+        return $this->builder
+            ->select('pro.productid, pro.productname')
+            ->get()->getResultArray();
+    }
+
     public function getOne($id)
     {
         return $this->builder

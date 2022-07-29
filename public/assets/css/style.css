@@ -8084,7 +8084,7 @@
     display: inline-block;
     -ms-flex-item-align: stretch;
     align-self: stretch;
-    width: 1px;
+    width: 0.5px;
     min-height: 1em;
     background-color: currentColor;
     opacity: 0.25; }

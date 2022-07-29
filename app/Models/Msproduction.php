@@ -32,14 +32,6 @@ class Msproduction extends Model
             ->countAllResults();
     }
 
-    public function getCompare($value)
-    {
-        return $this->builder
-            ->join('productionordersn as ps', 'p.id = ps.headerid')
-            ->where('ps.serialnumber', $value)
-            ->get()->getResultArray();
-    }
-
     public function getData()
     {
         return $this->builder
@@ -53,6 +45,23 @@ class Msproduction extends Model
         return $this->builder
             ->select('p.id, p.orderdate, p.batchnumber, ps.serialnumber')
             ->join('productionordersn as ps', 'p.id = ps.headerid');
+    }
+
+    public function getCompare($val)
+    {
+        return $this->builder
+            ->select('p.id, p.ordernumber, ps.serialnumber, ps.id as ids')
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->where('ps.serialnumber', $val)
+            ->get()->getRowArray();
+    }
+
+    public function countComp($val)
+    {
+        return $this->builder
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->where('ps.serialnumber', $val)
+            ->countAllResults();
     }
 
     public function getOne($id)

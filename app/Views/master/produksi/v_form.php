@@ -12,46 +12,54 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <input type="hidden" name="idp" id="idp">
-                            <label class="fw-semibold fs-7">Order Number</label>
-                            <input type="text" class="form-control form-control-sm" name="ordernum" id="ordernum" placeholder="Order Number">
+                            <label class="fs-7 fw-semibold">Material</label>
+                            <select class="form-control form-control" name="mater" id="mater">
+                                <?php foreach ($product as $p) : ?>
+                                    <option value="<?= $p['productid'] ?>"><?= $p['productname'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Part Number</label>
+                            <input class="form-control form-control-sm" type="text" name="pnum" id="pnum" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Image</label>
+                            <div class="form-control form-control-sm p-0">
+                                <img class="rounded" width="345" height="215" id="imgprev">
+                            </div>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label class="fw-semibold fs-7">Order Date</label>
-                            <input type="date" class="form-control form-control-sm" name="orderdate" id="orderdate">
+                            <label class="fs-7 fw-semibold">Order Number</label>
+                            <input class="form-control form-control-sm" type="text" name="ordernum" id="ordernum" placeholder="Order Number">
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Order Date</label>
+                            <input class="form-control form-control-sm" type="date" name="orderdate" id="orderdate" placeholder="Order Date">
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Location</label>
+                            <input class="form-control form-control-sm" type="text" name="loc" id="loc" placeholder="Location">
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Profit Center</label>
+                            <input class="form-control form-control-sm" name="profcenter" id="profcenter" placeholder="Profit Center">
+                        </div>
+                        <div class="form-group">
+                            <label class="fs-7 fw-semibold">Batch</label>
+                            <input class="form-control form-control-sm" name="batch" id="batch" placeholder="Batch">
                         </div>
                     </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label class="fw-semibold fs-7">Material</label><br>
-                            <select class="form-control form-control-sm" name="mater" id="mater">
-                                <option value="111">Satu</option>
-                                <option value="222">Dua</option>
-                                <option value="333">Tiga</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label class="fw-semibold fs-7">Batch</label>
-                            <input type="text" class="form-control form-control-sm" name="batch" id="batch" placeholder="Batch">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label class="fw-semibold fs-7">Location</label>
-                            <input type="text" class="form-control form-control-sm" name="loc" id="loc" placeholder="Location">
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label class="fw-semibold fs-7">Profit Center</label>
-                            <input type="text" class="form-control form-control-sm" name="profcenter" id="profcenter" placeholder="Profit Center">
+                    <div class="col-lg-4 d-flex justify-content-center align-items-center">
+                        <div class="card bg-primary border-0 text-center" style="width: 250px; height: 250px;">
+                            <div class="card-body d-flex justify-content-center align-items-center rounded">
+                                <div class="row">
+                                    <span class="fs-2 fw-semibold text-white">Total</span>
+                                    <span class="fs-2 fw-bold text-white" id="count-ser">0</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,7 +81,7 @@
                     <div class="col-lg-3" id="form-const">
                         <div class='form-group'>
                             <label class='fw-semibold fs-7'>Serial Number</label>
-                            <input type='text' class='form-control form-control-sm' name='serialnum' id='serialnum' placeholder='Serial Number'>
+                            <input type='text' class='form-control form-control-sm' name="serialnum" id="serialnum" placeholder='Serial Number'>
                         </div>
                     </div>
                     <div class="col-lg-3 d-flex align-items-center justify-content-start">
@@ -130,6 +138,7 @@
 
         function resetTable() {
             $('#tbl_prod tbody tr').remove();
+            $('#count-ser').text("0");
         }
 
         function appendTable() {
@@ -149,8 +158,9 @@
                             <td>' + serialnum + '</td>\
                             <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
                         </tr>\
-                    '
+                        '
                     );
+                    $('#count-ser').text(tbl.rows.length);
                 } else if ($("#sub_serial").attr('form') == 'previx') {
                     var sum = startnum + qty;
                     for (var i = sum; startnum <= sum; startnum++) {
@@ -162,6 +172,7 @@
                             </tr>\
                         '
                         );
+                        $('#count-ser').text(tbl.rows.length);
                     }
                     $.notify('Append ' + String(tbl.rows.length) + ' data to table', 'success');
                 } else {
@@ -170,10 +181,10 @@
             } else {
                 $.notify('Serial Number required', 'warn');
             }
-
             $('.btndel').each(function() {
                 $(this).on('click', function() {
                     $(this).closest('tr').remove();
+                    $('#count-ser').text(tbl.rows.length);
                 })
             });
         }
@@ -181,11 +192,33 @@
         $('#mater').select2({
             width: "100%",
             height: "40px",
+            minimumResultsForSearch: Infinity,
         });
+
+        $('#mater').change(function() {
+            var link = '<?= base_url('prod/prev') ?>',
+                id = $(this).val();
+
+            $.ajax({
+                url: link,
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    id: id,
+                },
+                success: function(res) {
+                    $('#pnum').val(res.partnum);
+                    $('#imgprev').attr('src', '<?= base_url('public/product_img') ?>' + '/' + res.img + '')
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    $.notify(thrownError, 'error');
+                }
+            })
+        })
 
         $('#tbl_res').on('click', function() {
             resetTable();
-        })
+        });
 
         $("#formproduct input[type!=date]").keydown(function(e) {
             if (e.keyCode == 13) {
@@ -211,9 +244,7 @@
                     tbl_data.push(sub);
                 }
             });
-
             $.notify(msg, 'warn');
-
             $.ajax({
                 url: link,
                 type: 'post',
@@ -254,9 +285,6 @@
         $('#sub_serial').on('click', function() {
             if ($('#serialnum').val() != '') {
                 appendTable();
-                setTimeout(() => {
-                    $('#serialnum').val("");
-                }, 100);
             } else {
                 $.notify('Serial Number required', 'warn');
             }
@@ -266,13 +294,10 @@
             if (e.keyCode == 13) {
                 if ($(this).val() != '') {
                     appendTable();
-                    // setTimeout(() => {
-                    //     $.notify(msg, 'warn');
-                    // }, 100);
-                    $('#serialnum').val("");
                 } else {
                     $.notify('Serial Number required', 'warn');
                 }
+                $(this).val("");
             }
         })
 
@@ -298,6 +323,16 @@
                 },
                 success: function(res) {
                     $('#form-const').html(res);
+                    $('#serialnum').keydown(function(e) {
+                        if (e.keyCode == 13) {
+                            if ($(this).val() != '') {
+                                appendTable();
+                                $('#serialnum').val("");
+                            } else {
+                                $.notify('Serial Number required', 'warn');
+                            }
+                        }
+                    })
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $.notify(thrownError, 'error');

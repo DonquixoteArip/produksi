@@ -36,7 +36,7 @@
             <a class="nav-link" data-bs-toggle="collapse" id="btn-side-collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="fas fa-server fs-6 menu-icon"></i>
                 <span class="menu-title me-auto">Master</span>
-                <i class="fas fa-chevron-right fs-8 icon-sidebar" style="transition: 0.5s ease-in-out;"></i>
+                <i class="fas fa-chevron-right fs-8 icon-sidebar menu-title" style="transition: 0.5s ease-in-out;"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">

@@ -10,6 +10,6 @@
     </div>
     <div class="form-group">
         <label class="fw-semibold fs-7 text-secondary">Product Image</label>
-        <input type="file" class="form-control rounded" name="productimg" id="productimg" value="<?= (($type == 'edit' ? $row['image'] : '')) ?>">
+        <input type="file" class="form-control rounded" name="productimg" id="productimg" value="">
     </div>
 </form>
