@@ -24,7 +24,6 @@ class App extends BaseConfig
      *
      * @var string
      */
-    // public $baseURL = 'http://10.21.1.61/produksi/';
     public $baseURL = '';
 
     /**

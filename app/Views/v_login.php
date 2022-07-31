@@ -46,7 +46,7 @@
 </html>
 <script>
     $(document).ready(function() {
-        $('#btn_login').on('click', function() {
+        $('#btn_login').click(function() {
             $(this).html('<i class="fas fa-spinner fa-spin-pulse fs-7 text-white">');
             var link = '<?= base_url('login/auth') ?>',
                 data = $('#formlogin').serialize();

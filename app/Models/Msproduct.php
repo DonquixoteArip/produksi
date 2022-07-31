@@ -28,10 +28,12 @@ class Msproduct extends Model
         return $this->builder;
     }
 
-    public function getSel2($searchTerm = '')
+    public function getSel2($searchTerm)
     {
         return $this->builder
             ->select('pro.productid, pro.productname')
+            ->where("pro.productname like '%" . $searchTerm . "%'")
+            ->orderBy("pro.productname", 'asc')
             ->get()->getResultArray();
     }
 

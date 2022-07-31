@@ -57,6 +57,7 @@ $routes->add('prod/data', 'master\Produksi::process');
 $routes->add('prod/addser', 'master\Produksi::serialAdd');
 $routes->add('prod/edit', 'master\Produksi::forms');
 $routes->add('prod/result', 'master\Produksi::saveRes');
+$routes->add('prod/getSel', 'master\Produksi::getSel');
 $routes->add('prod/prev', 'master\Produksi::getProduct');
 
 // Product

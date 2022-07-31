@@ -14,19 +14,16 @@
                         <div class="form-group">
                             <label class="fs-7 fw-semibold">Material</label>
                             <select class="form-control form-control" name="mater" id="mater">
-                                <?php foreach ($product as $p) : ?>
-                                    <option value="<?= $p['productid'] ?>"><?= $p['productname'] ?></option>
-                                <?php endforeach; ?>
+                                <!-- Content -->
                             </select>
                         </div>
                         <div class="form-group">
                             <label class="fs-7 fw-semibold">Part Number</label>
-                            <input class="form-control form-control-sm" type="text" name="pnum" id="pnum" disabled>
+                            <input class="form-control form-control-sm" type="text" name="pnum" id="pnum" style="cursor: not-allowed;" disabled>
                         </div>
                         <div class="form-group">
                             <label class="fs-7 fw-semibold">Image</label>
-                            <div class="form-control form-control-sm p-0">
-                                <img class="rounded" width="345" height="215" id="imgprev">
+                            <div class="form-control form-control-sm p-0" style="height: 218px;" id="imgprev">
                             </div>
                         </div>
                     </div>
@@ -190,9 +187,26 @@
         }
 
         $('#mater').select2({
+            placeholder: 'Select Product',
             width: "100%",
             height: "40px",
-            minimumResultsForSearch: Infinity,
+            ajax: {
+                url: '<?= base_url('prod/getSel') ?>',
+                type: 'post',
+                dataType: 'json',
+                delay: 50,
+                data: function(params) {
+                    return {
+                        searchTerm: params.term
+                    };
+                },
+                processResults: function(res) {
+                    return {
+                        results: res
+                    };
+                },
+                cache: true,
+            }
         });
 
         $('#mater').change(function() {
@@ -208,7 +222,10 @@
                 },
                 success: function(res) {
                     $('#pnum').val(res.partnum);
-                    $('#imgprev').attr('src', '<?= base_url('public/product_img') ?>' + '/' + res.img + '')
+                    $('#imgprev').css('background-image', 'url(<?= base_url('public/product_img') ?>' + '/' + res.img + ')')
+                    $('#imgprev').css('background-repeat', 'no-repeat');
+                    $('#imgprev').css('background-size', 'cover');
+                    $('#imgprev').css('background-position', 'center');
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
                     $.notify(thrownError, 'error');

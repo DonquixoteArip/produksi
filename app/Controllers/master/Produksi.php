@@ -27,7 +27,6 @@ class Produksi extends BaseController
         if (session()->get('id_user') != '') {
             $data = [
                 'title' => 'Produksi',
-                'product' => $this->p->getSel2(),
             ];
             return view('master/produksi/v_produksi', $data);
         } else {
@@ -132,6 +131,18 @@ class Produksi extends BaseController
         }
     }
 
+    public function getSel()
+    {
+        $searchTerm = $this->request->getPost('searchTerm');
+        $prod = $this->p->getSel2($searchTerm);
+        $res = array();
+
+        foreach ($prod as $p) {
+            $res[] = array("id" => $p['productid'], "text" => $p['productname']);
+        }
+        echo json_encode($res);
+    }
+
     public function process()
     {
         $res = array();
@@ -146,13 +157,11 @@ class Produksi extends BaseController
         $dtTable = $this->request->getPost('tbl');
 
         if ($id != '') {
-            // Edit Data
             $res = [
                 'success' => 1,
                 'msg' => 'Selamat Hari Raya',
             ];
         } else {
-            // Add Data
             if ($ordernum != '' && $orderdate != '' && $material != '' && $batch != '') {
                 $data = [
                     'productid' => $material,
@@ -253,41 +262,60 @@ class Produksi extends BaseController
                     fclose($file);
                 }
             }
-            echo json_encode($data);
+        } else if ($files > 2) {
+            $data['msg'] = array(
+                'data' => 'More than 2 files detected in this directory',
+            );
         }
+        echo json_encode($data);
     }
 
     public function saveRes()
     {
+        $res = array();
         $imgname = $this->request->getPost('imgN');
         $snid = $this->request->getPost('sid');
         $status = $this->request->getPost('stats');
         $txtname = $this->request->getPost('txtn');
+        $path = "D:/data-result/" . date('ymd');
 
-        mkdir("D:/data-result/" . date('ymd'), 0777, true);
-        // $data = [
-        //     'snid' => $snid,
-        //     'status' => $status,
-        //     'imgfile' => $imgname,
-        //     'txtfile' => $txtname,
-        //     'directory' => 'directory',
-        //     'createddate' => date('Y-m-d H:i:s'),
-        //     'createdby' => session()->get('id_user'),
-        // ];
+        if (!is_dir($path)) {
+            $dirname = mkdir($path, 0777, true);
 
-        // $q = $this->res->tambah($data);
-        // if ($q) {
-        //     $res = [
-        //         'success' => 1,
-        //         'msg' => 'Saving Data',
-        //     ];
-        // } else {
-        //     $res = [
-        //         'success' => 0,
-        //         'msg' => 'Insert Data Failed',
-        //     ];
-        // }
+            if ($dirname) {
+                copy("D:/data/" . $imgname . "", "$path/" . $imgname . "");
+                copy("D:/data/" . $txtname . "", "$path/" . $txtname . "");
+            }
 
-        // echo json_encode($res);
+            $data = [
+                'snid' => $snid,
+                'status' => $status,
+                'imgfile' => $imgname,
+                'txtfile' => $txtname,
+                'directory' => "$path/",
+                'createddate' => date('Y-m-d H:i:s'),
+                'createdby' => session()->get('id_user'),
+            ];
+
+            $q = $this->res->tambah($data);
+            if ($q) {
+                $res = [
+                    'success' => 1,
+                    'msg' => 'Process Success',
+                ];
+            } else {
+                $res = [
+                    'success' => 0,
+                    'msg' => 'Insert Data Failed',
+                ];
+            }
+        } else {
+            $res = [
+                'success' => 0,
+                'msg' => 'Directory already exist',
+            ];
+        }
+
+        echo json_encode($res);
     }
 }

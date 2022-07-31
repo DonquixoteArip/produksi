@@ -60,7 +60,6 @@
         </div>
     </div>
 </div>
-
 <script>
     $('#load-datas').load('<?= base_url('prod/load') ?>');
     $('#counts').load('<?= base_url('prod/count') ?>');
@@ -117,12 +116,10 @@
                                             <label class='fs-7set fw-semibold text-secondary'>" + res[1].txtname + "</label>\
                                         </div>\
                                         <div class='col-lg-6'>\
-                                            <div class='card bg-secondary bg-opacity-75'>\
-                                                <a href='data:image/png;base64, " + res[0].img + "' class='fancybox' data-fancybox='img'>\
-                                                    <img src='data:image/png;base64," + res[0].img + "' class='rounded' id='img-comp' width='100%' height='100%'>\
-                                                </a>\
+                                            <div class='card bg-secondary bg-opacity-75' id='lightgallery'>\
+                                                <img src='data:image/png;base64," + res[0].img + "' class='rounded' id='img-comp' width='100%' height='100%'>\
                                             </div>\
-                                            <label class='fs-7set fw-semibold text-secondary'>" + res[0].imgname + "</label>\
+                                            <label class='fs-7set fw-semibold text-secondary' id='imgName'>" + res[0].imgname + "</label>\
                                         </div>\
                                     </div>\
                                 </div>\
@@ -149,10 +146,10 @@
                                             <label class='fs-7set fw-semibold text-secondary'>" + res[1].txtname + "</label>\
                                         </div>\
                                         <div class='col-lg-6'>\
-                                            <div class='card bg-secondary bg-opacity-75'>\
-                                                <img src='data:image/png;base64," + res[0].img + "' class='rounded' id='img-comp'>\
+                                            <div class='card bg-secondary bg-opacity-75' id='lightgallery'>\
+                                                <img src='data:image/png;base64," + res[0].img + "' class='rounded' id='img-comp' width='100%' height='100%'>\
                                             </div>\
-                                            <label class='fs-7set fw-semibold text-secondary'>" + res[0].imgname + "</label>\
+                                            <label class='fs-7set fw-semibold text-secondary' id='imgName'>" + res[0].imgname + "</label>\
                                         </div>\
                                     </div>\
                                 </div>\
@@ -168,9 +165,20 @@
                             $(this).css('cursor', 'none');
                         }
                     )
-                    $('#img-comp').on('click', function() {
-                        // Zoom goes here
+                    var el = $('#lightgallery').find('img').attr('src'),
+                        imN = $('#imgName').text();
+                    $('#lightgallery').on('click', function() {
+                        dynamic.openGallery();
                     });
+
+                    var dynamic = lightGallery($('#lightgallery'), {
+                        dynamic: true,
+                        dynamicEl: [{
+                            src: el,
+                            thumb: el,
+                            subHtml: '<h4>' + imN + '</h4>',
+                        }]
+                    })
                 } else {
                     $.notify("This directory has no files", 'warn');
                 }
