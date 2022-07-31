@@ -31,8 +31,9 @@ class Msproduct extends Model
     public function getSel2($searchTerm)
     {
         return $this->builder
-            ->select('pro.productid, pro.productname')
+            ->select('pro.productid, pro.productname, pro.partnumber')
             ->where("pro.productname like '%" . $searchTerm . "%'")
+            ->orWhere("pro.partnumber like '%" . $searchTerm . "%'")
             ->orderBy("pro.productname", 'asc')
             ->get()->getResultArray();
     }

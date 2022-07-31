@@ -181,8 +181,8 @@
             keyNavigation: false,
         },
         anchor: {
-            anchorClickable: true,
-            enableNavigationAlways: true,
+            anchorClickable: false,
+            enableNavigationAlways: false,
         },
     });
     $('#btn-sideslide').on('click', function() {

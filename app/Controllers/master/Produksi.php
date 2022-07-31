@@ -107,14 +107,10 @@ class Produksi extends BaseController
         echo json_encode($data);
     }
 
-    public function count()
-    {
-        echo $this->prod->count();
-    }
-
     public function load()
     {
-        $query = $this->prod->getData();
+        $headerid = $this->request->getPost('headerid');
+        $query = $this->prod->getData($headerid);
         foreach ($query as $q) {
             echo "
             <div class='col-lg-4 pb-3 px-2 text-center'>
@@ -138,7 +134,7 @@ class Produksi extends BaseController
         $res = array();
 
         foreach ($prod as $p) {
-            $res[] = array("id" => $p['productid'], "text" => $p['productname']);
+            $res[] = array("id" => $p['productid'], "text" => $p['productname'] . " - " . $p['partnumber']);
         }
         echo json_encode($res);
     }
@@ -152,6 +148,9 @@ class Produksi extends BaseController
         $material = $this->request->getPost('mater');
         $batch = $this->request->getPost('batch');
         $loc = $this->request->getPost('loc');
+        $mm = $this->request->getPost('mm');
+        $yy = $this->request->getPost('yy');
+        $mmyy = $mm . "/" . $yy;
         $profcenter = $this->request->getPost('profcenter');
         $previx = $this->request->getPost('previx');
         $dtTable = $this->request->getPost('tbl');
@@ -167,6 +166,7 @@ class Produksi extends BaseController
                     'productid' => $material,
                     'ordernumber' => $ordernum,
                     'orderdate' => $orderdate,
+                    'productiondate' => $mmyy,
                     'batchnumber' => $batch,
                     'location' => $loc,
                     'profcenter' => $profcenter,
@@ -195,6 +195,7 @@ class Produksi extends BaseController
                     }
                     $res = [
                         'success' => 1,
+                        'header' => $idt,
                         'msg' => 'New Data Added',
                     ];
                 } else {
@@ -237,6 +238,7 @@ class Produksi extends BaseController
     public function compare()
     {
         $dir    = 'D:\data';
+        $header = $this->request->getPost('header');
         $files = array_diff(scandir($dir, 1), ['..', '.']);
         $data = array();
 
@@ -251,7 +253,7 @@ class Produksi extends BaseController
                         );
                     } else {
                         $txt = fread($file, filesize(str_replace("_", "", "$dir\_$f")));
-                        $q = $this->prod->getCompare($txt);
+                        $q = $this->prod->getCompare($txt, $header);
                         $data['1'] = array(
                             'txt' => $txt,
                             'txtname' => $f,
@@ -277,14 +279,13 @@ class Produksi extends BaseController
         $snid = $this->request->getPost('sid');
         $status = $this->request->getPost('stats');
         $txtname = $this->request->getPost('txtn');
-        $path = "D:/data-result/" . date('ymd');
+        $path = "D:/data-result/" . date('ymdHis');
 
         if (!is_dir($path)) {
             $dirname = mkdir($path, 0777, true);
-
             if ($dirname) {
-                copy("D:/data/" . $imgname . "", "$path/" . $imgname . "");
-                copy("D:/data/" . $txtname . "", "$path/" . $txtname . "");
+                rename("D:/data/" . $imgname . "", "$path/" . $imgname . "");
+                rename("D:/data/" . $txtname . "", "$path/" . $txtname . "");
             }
 
             $data = [

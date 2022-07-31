@@ -52,7 +52,6 @@ $routes->add('product/datatabel', 'master\Product::datatables');
 $routes->add('prod/type', 'master\Produksi::types');
 $routes->add('prod/load', 'master\Produksi::load');
 $routes->add('prod/compare', 'master\Produksi::compare');
-$routes->add('prod/count', 'master\Produksi::count');
 $routes->add('prod/data', 'master\Produksi::process');
 $routes->add('prod/addser', 'master\Produksi::serialAdd');
 $routes->add('prod/edit', 'master\Produksi::forms');
@@ -64,6 +63,7 @@ $routes->add('prod/prev', 'master\Produksi::getProduct');
 $routes->add('product', 'master\Product::index');
 $routes->add('product/form', 'master\Product::formViews');
 $routes->add('product/add', 'master\Product::process');
+$routes->add('product/single', 'master\Product::getOne');
 $routes->add('product/delete', 'master\Product::delete');
 /*
  * --------------------------------------------------------------------

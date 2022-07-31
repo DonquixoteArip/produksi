@@ -45,16 +45,30 @@
                             <input class="form-control form-control-sm" name="profcenter" id="profcenter" placeholder="Profit Center">
                         </div>
                         <div class="form-group">
+                            <label class="fs-7 fw-semibold">MM/YYYY</label>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control form-control-sm" name="mm" id="mm" placeholder="MM" maxlength="2">
+                                </div>
+                                <div class="col-lg-1 d-flex justify-content-center align-items-center fs-5">
+                                    /
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="text" class="form-control form-control-sm" name="yyyy" id="yyyy" placeholder="YYYY" maxlength="4">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="fs-7 fw-semibold">Batch</label>
                             <input class="form-control form-control-sm" name="batch" id="batch" placeholder="Batch">
                         </div>
                     </div>
                     <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                        <div class="card bg-primary border-0 text-center" style="width: 250px; height: 250px;">
+                        <div class="card border-0 text-center" style="width: 250px; height: 250px;">
                             <div class="card-body d-flex justify-content-center align-items-center rounded">
                                 <div class="row">
-                                    <span class="fs-2 fw-semibold text-white">Total</span>
-                                    <span class="fs-2 fw-bold text-white" id="count-ser">0</span>
+                                    <span class="fs-2 fw-semibold text-primary">Total</span>
+                                    <span class="fs-2 fw-bold text-primary" id="count-ser">0</span>
                                 </div>
                             </div>
                         </div>
@@ -133,9 +147,10 @@
             $('#orderdate').val(format);
         })
 
-        function resetTable() {
+        function reset() {
             $('#tbl_prod tbody tr').remove();
             $('#count-ser').text("0");
+            $('#formproduct')[0].reset();
         }
 
         function appendTable() {
@@ -149,18 +164,29 @@
 
             if (serialnum != '' && previx != '') {
                 if ($("#sub_serial").attr('form') == 'serial') {
-                    $('#tbl_body').append(
-                        '<tr>\
-                            <td>' + (tbl.rows.length + 1) + '</td>\
-                            <td>' + serialnum + '</td>\
-                            <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
-                        </tr>\
-                        '
-                    );
+                    var f = 0;
+                    $('#tbl_body').find("tr").each(function() {
+                        var td = $(this).find('td:eq(1)').text();
+                        if ($('#serialnum').val() == td) {
+                            f = 1;
+                        }
+                    })
+                    if (f == 1) {
+                        $.notify("Can't duplicate Serial Number", 'warn');
+                    } else {
+                        $('#tbl_body').append(
+                            '<tr>\
+                                <td>' + (tbl.rows.length + 1) + '</td>\
+                                <td>' + serialnum + '</td>\
+                                <td><button class="btn btn-sm btn-danger btndel" idt=' + (tbl.rows.length) + '><i class="fas fa-close fs-7"></i></button></td>\
+                            </tr>\
+                            '
+                        );
+                    }
                     $('#count-ser').text(tbl.rows.length);
                 } else if ($("#sub_serial").attr('form') == 'previx') {
                     var sum = startnum + qty;
-                    for (var i = sum; startnum <= sum; startnum++) {
+                    for (var i = sum; startnum < sum; startnum++) {
                         $('#tbl_body').append(
                             '<tr>\
                                 <td>' + (tbl.rows.length + 1) + '</td>\
@@ -234,7 +260,7 @@
         })
 
         $('#tbl_res').on('click', function() {
-            resetTable();
+            reset();
         });
 
         $("#formproduct input[type!=date]").keydown(function(e) {
@@ -261,7 +287,7 @@
                     tbl_data.push(sub);
                 }
             });
-            $.notify(msg, 'warn');
+
             $.ajax({
                 url: link,
                 type: 'post',
@@ -271,6 +297,8 @@
                     ordernum: $('#ordernum').val(),
                     orderdate: $('#orderdate').val(),
                     mater: $('#mater').val(),
+                    mm: $('#mm').val(),
+                    yy: $('#yyyy').val(),
                     batch: $('#batch').val(),
                     loc: $('#loc').val(),
                     profcenter: $('#profcenter').val(),
@@ -281,15 +309,42 @@
                     tbl: tbl_data,
                 },
                 success: function(res) {
+                    $('#idh').val(res.header);
                     if (res.success == 1) {
+                        $.ajax({
+                            url: '<?= base_url('product/single') ?>',
+                            type: 'post',
+                            dataType: 'json',
+                            data: {
+                                id: $('#mater').val(),
+                                header: $('#idh').val(),
+                            },
+                            success: function(res) {
+                                $('#smartwizard').smartWizard('goToStep', 1);
+                                $('#name_input').val(res.pname);
+                                $('#part_input').val(res.partnum);
+                                $('#counts').text(res.count);
+                                $('#img_input').css('background-image', 'url(<?= base_url('public/product_img') ?>' + '/' + res.img + ')')
+                                $('#img_input').css('background-repeat', 'no-repeat');
+                                $('#img_input').css('background-size', 'cover');
+                                $('#img_input').css('background-position', 'center');
+                            }
+                        });
+                        $.ajax({
+                            url: '<?= base_url('prod/load') ?>',
+                            type: 'post',
+                            data: {
+                                headerid: res.header,
+                            },
+                            success: function(res) {
+                                $('#load-datas').html(res);
+                            }
+                        })
                         $.notify(res.msg, 'success');
-                        $('#formproduct')[0].reset();
-                        resetTable();
+                        reset();
                     } else {
                         $.notify(res.msg, 'warn');
                     }
-                    $('#load-datas').load('<?= base_url('prod/load') ?>');
-                    $('#counts').load('<?= base_url('prod/count') ?>');
                     tbl_rep.ajax.reload();
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

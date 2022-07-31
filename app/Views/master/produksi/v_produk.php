@@ -1,27 +1,50 @@
-<div class="container bg-white shadow-sm rounded border-0" style="height: max-content;">
+<div class="container bg-white shadow-sm rounded border-0 mb-4" style="height: max-content;">
     <div class="content p-4 px-2" id="prodcontent">
         <div class="header-title text-start">
             <span class="fw-bold fs-6 text-primary">PRODUK</span>
         </div>
         <hr>
-        <div class="product-content">
+        <div class="px-2">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="container text-center bg-primary rounded w-75 p-2">
-                        <h6 class="text-white fs-7 fw-semibold">Total</h6>
-                        <span class="fw-light text-white" id="counts">0</span>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label class="fs-7 fw-semibold text-secondary">Product Name</label>
+                        <input type="text" class="form-control form-control-sm" id="name_input" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label class="fs-7 fw-semibold text-secondary">Part Number</label>
+                        <input type="text" class="form-control form-control-sm" id="part_input" disabled>
+                    </div>
+                    <div class="form-group" style="width: 350px; height: 218px;">
+                        <label class="fs-7 fw-semibold text-secondary">Product Image</label>
+                        <div class="form-control form-control-sm p-0" style="height: 218px;" id="img_input">
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="container text-center bg-primary rounded w-75 p-2">
-                        <h6 class="text-white fs-7 fw-semibold">Total Match</h6>
-                        <span class="fw-light text-white" id="tot_match">0</span>
+                <div class="col-lg-6" style="border-left: 1px solid #C1C1C1;">
+                    <div class="container text-center p-2 mb-2">
+                        <div class="card bg-primary rounded">
+                            <div class="card-body">
+                                <h6 class="text-white fs-6 fw-semibold">Total</h6>
+                                <span class="fw-light text-white" id="counts">0</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="container text-center bg-primary rounded w-75 p-2">
-                        <h6 class="text-white fs-7 fw-semibold">Total Unmatch</h6>
-                        <span class="fw-light text-white" id="tot_unm">0</span>
+                    <div class="container text-center p-2 mb-2">
+                        <div class="card bg-primary rounded">
+                            <div class="card-body">
+                                <h6 class="text-white fs-6 fw-semibold">Total Match</h6>
+                                <span class="fw-light text-white" id="tot_match">0</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container text-center p-2">
+                        <div class="card bg-primary rounded">
+                            <div class="card-body">
+                                <h6 class="text-white fs-6 fw-semibold">Total Unmatch</h6>
+                                <span class="fw-light text-white" id="tot_unm">0</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,6 +53,7 @@
         <div class="product-view">
             <div class="row">
                 <div class="col-lg-6">
+                    <input type="hidden" name="idh" id="idh">
                     <span class="text-primary fw-semibold">Hasil Scan</span>
                     <hr>
                     <div class="row px-2" id="load-datas">
@@ -61,8 +85,6 @@
     </div>
 </div>
 <script>
-    $('#load-datas').load('<?= base_url('prod/load') ?>');
-    $('#counts').load('<?= base_url('prod/count') ?>');
     var image = '',
         snid = '',
         status = '',
@@ -81,12 +103,16 @@
 
     $('#btn-prod').on('click', function() {
         var link = '<?= base_url('prod/compare') ?>',
+            header = $('#idh').val(),
             num = '';
 
         $.ajax({
             url: link,
             type: 'post',
             dataType: 'json',
+            data: {
+                header: header,
+            },
             success: function(res) {
                 if (res.length != '') {
                     image = res[0].imgname;
@@ -126,7 +152,7 @@
                                 "
                             );
                             return false;
-                        } else {
+                        } else if ($(this).attr('id') != num) {
                             $(this).removeClass('bg-success');
                             $(this).addClass('bg-secondary');
                             msg = 'Resulting Uncompared Data';
@@ -164,7 +190,7 @@
                         function() {
                             $(this).css('cursor', 'none');
                         }
-                    )
+                    );
                     var el = $('#lightgallery').find('img').attr('src'),
                         imN = $('#imgName').text();
                     $('#lightgallery').on('click', function() {
@@ -178,17 +204,18 @@
                             thumb: el,
                             subHtml: '<h4>' + imN + '</h4>',
                         }]
-                    })
+                    });
+
+                    $('#tot_match').text(res[1].count);
+                    var all = parseInt($('#counts').text()),
+                        comp = parseInt(res[1].count),
+                        summ = all - comp;
+                    $('#tot_unm').text(summ);
+                    $.notify(msg, 'success');
                 } else {
-                    $.notify("This directory has no files", 'warn');
+                    $.notify('This directory has no files', 'warn');
                 }
 
-                $.notify(msg, 'success');
-                $('#tot_match').text(res[1].count);
-                var all = parseInt($('#counts').text()),
-                    comp = parseInt(res[1].count),
-                    summ = all - comp;
-                $('#tot_unm').text(summ);
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 $.notify(thrownError, 'error');
@@ -202,6 +229,7 @@
             imgname = image,
             serial = snid,
             sts = status,
+            header = $('#idh').val(),
             txtname = text;
 
         $.ajax({
@@ -210,6 +238,7 @@
             dataType: 'json',
             data: {
                 imgN: imgname,
+                idh: header,
                 sid: serial,
                 stats: sts,
                 txtn: txtname,
@@ -219,6 +248,27 @@
                     resetProd();
                     $('#btn-fold').attr('disabled', true);
                     $.notify(res.msg, 'success');
+                    $.ajax({
+                        url: '<?= base_url('prod/load') ?>',
+                        type: 'post',
+                        data: {
+                            headerid: $('#idh').val(),
+                        },
+                        success: function(res) {
+                            $('#load-datas').html(res);
+                        }
+                    });
+                    $.ajax({
+                        url: '<?= base_url('product/single') ?>',
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            header: $('#idh').val(),
+                        },
+                        success: function(res) {
+                            $('#counts').text(res.count);
+                        }
+                    })
                 } else {
                     $.notify(res.msg, 'warn');
                 }

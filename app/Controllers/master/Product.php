@@ -44,13 +44,38 @@ class Product extends BaseController
                 $db->partnumber,
                 $db->productname,
                 "
-                    <button type='button' class='btn btn-sm btn-warning' onclick=\"editProd('" . $db->productid . "', '" . base_url('product/process') . "', 'Update Product','Update')\"><i class='fas fa-pencil fs-7'></i></button>
-                    <button type='button' class='btn btn-sm btn-danger' onclick=\"hapusModal('Delete Product', 'Are you sure want to delete this product?', '" . $db->productid . "', 'modal-md', '" . base_url('product/delete') . "', 'Delete')\"><i class='fas fa-trash fs-7'></i></button>
-                    "
+                <button type='button' class='btn btn-sm btn-warning' onclick=\"editProd('" . $db->productid . "', '" . base_url('product/process') . "', 'Update Product','Update')\"><i class='fas fa-pencil fs-7'></i></button>
+                <button type='button' class='btn btn-sm btn-danger' onclick=\"hapusModal('Delete Product', 'Are you sure want to delete this product?', '" . $db->productid . "', 'modal-md', '" . base_url('product/delete') . "', 'Delete')\"><i class='fas fa-trash fs-7'></i></button>
+                "
             ];
         });
 
         $datatables->toJson();
+    }
+
+    public function getOne()
+    {
+        $data = array();
+        $id = $this->request->getPost('id');
+        $header = $this->request->getPost('header');
+
+        if ($id != '') {
+            $q = $this->p->getOne($id);
+            if ($q) {
+                $data = [
+                    'pname' => $q['productname'],
+                    'partnum' => $q['partnumber'],
+                    'img' => $q['image'],
+                    'count' => $this->prod->count($header),
+                ];
+            }
+        } else {
+            $data = [
+                'count' => $this->prod->count($header),
+            ];
+        }
+
+        echo json_encode($data);
     }
 
     public function formViews()
