@@ -34,6 +34,28 @@ class Msproduction extends Model
             ->countAllResults();
     }
 
+    public function getExp($header)
+    {
+        return $this->builder
+            ->select('p.id, p.productid as ip, p.ordernumber, p.batchnumber, p.productiondate, ps.id, ps.headerid, ps.serialnumber,r.createddate, r.status, r.snid, pr.productid as pid, pr.partnumber')
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->join('productionresult as r', 'ps.id = r.snid')
+            ->join('msproduct as pr', 'p.productid = pr.productid', 'left')
+            ->where('ps.headerid', $header)
+            ->get()->getResultArray();
+    }
+
+    public function getHead($header)
+    {
+        return $this->builder
+            ->select('p.id, p.productid as pid, p.ordernumber, p.batchnumber, p.productiondate, ps.headerid, ps.serialnumber, r.status, r.createddate, r.createddate, pr.partnumber, pr.productid as prid')
+            ->join('productionordersn as ps', 'p.id = ps.headerid')
+            ->join('productionresult as r', 'ps.id = r.snid')
+            ->join('msproduct as pr', 'p.productid = pr.productid', 'left')
+            ->where('ps.headerid', $header)
+            ->get()->getRowArray();
+    }
+
     public function getData($header)
     {
         return $this->builder

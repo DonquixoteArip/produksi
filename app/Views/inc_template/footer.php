@@ -181,7 +181,7 @@
             keyNavigation: false,
         },
         anchor: {
-            anchorClickable: false,
+            anchorClickable: true,
             enableNavigationAlways: false,
         },
     });

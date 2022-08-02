@@ -8,6 +8,7 @@ use App\Models\Msproduct;
 use App\Models\Msproduction;
 use App\Models\MsProductionSn;
 use DateTime;
+use Dompdf\Dompdf;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class Product extends BaseController
@@ -185,5 +186,27 @@ class Product extends BaseController
         }
 
         echo json_encode($res);
+    }
+
+    public function exPDF($id)
+    {
+        $res = [];
+        $data = $this->prod->getExp($id);
+        foreach ($data as $d) {
+            array_push($res, [
+                'data' => $d,
+            ]);
+        }
+
+        $view = view('master/produksi/v_pdf', [
+            'data' => $res,
+            'row' => $this->prod->getHead($id),
+        ]);
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml($view);
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        $pdf->stream('data-export', array('attachment' => false));
     }
 }

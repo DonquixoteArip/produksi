@@ -256,6 +256,14 @@
                         },
                         success: function(res) {
                             $('#load-datas').html(res);
+                            if (res.length == 0) {
+                                setTimeout(() => {
+                                    $('#name_input').val("");
+                                    $('#part_input').val("");
+                                    $('#img_input').css('background-image', '');
+                                    $('#smartwizard').smartWizard('goToStep', 2);
+                                }, 150);
+                            }
                         }
                     });
                     $.ajax({

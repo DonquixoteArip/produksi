@@ -151,6 +151,8 @@
             $('#tbl_prod tbody tr').remove();
             $('#count-ser').text("0");
             $('#formproduct')[0].reset();
+            $('#mater').html("");
+            $('#imgprev').css('background-image', '');
         }
 
         function appendTable() {
@@ -310,6 +312,8 @@
                 },
                 success: function(res) {
                     $('#idh').val(res.header);
+                    $('#btn-export').attr('disabled', false);
+                    $('#btn-export').attr('href', '<?= base_url('product/exp') ?>' + '/' + res.header);
                     if (res.success == 1) {
                         $.ajax({
                             url: '<?= base_url('product/single') ?>',

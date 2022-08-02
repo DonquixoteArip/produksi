@@ -64,6 +64,7 @@ $routes->add('product', 'master\Product::index');
 $routes->add('product/form', 'master\Product::formViews');
 $routes->add('product/add', 'master\Product::process');
 $routes->add('product/single', 'master\Product::getOne');
+$routes->add('product/exp/(:num)', 'master\Product::exPDF/$1');
 $routes->add('product/delete', 'master\Product::delete');
 /*
  * --------------------------------------------------------------------

@@ -7,7 +7,6 @@
                 </div>
                 <div class="nav-profile-text d-flex ms-0 mb-3 flex-column mt-2">
                     <span class="font-weight-semibold mb-1 mt-2 text-center">Asep Sanjaya</span>
-                    <span class="text-secondary icon-sm text-center">Rp. 10.000.000</span>
                 </div>
             </a>
         </li>
@@ -36,7 +35,7 @@
             <a class="nav-link" data-bs-toggle="collapse" id="btn-side-collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <i class="fas fa-server fs-6 menu-icon"></i>
                 <span class="menu-title me-auto">Master</span>
-                <i class="fas fa-chevron-right fs-8 icon-sidebar menu-title" style="transition: 0.5s ease-in-out;"></i>
+                <i class="fas fa-chevron-right fs-7set icon-sidebar menu-arrow" style="transition: 0.5s ease-in-out;"></i>
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
