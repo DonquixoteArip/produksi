@@ -104,4 +104,9 @@ class Msproduction extends Model
     {
         return $this->builder->insert($data);
     }
+
+    public function edit($data, $id)
+    {
+        return $this->builder->update($data, ['id' => $id]);
+    }
 }

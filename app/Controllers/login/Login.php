@@ -20,6 +20,20 @@ class Login extends BaseController
         return view('v_login');
     }
 
+    // Static Create User Login
+    // public function usera()
+    // {
+    //     $data = [
+    //         'username' => 'rekso123',
+    //         'password' => password_hash('rekso123', PASSWORD_DEFAULT),
+    //         'createddate' => date('Y-m-d H:i:s'),
+    //         'createdby' => 'admin',
+    //         'fullname' => 'Reksho Satriyo',
+    //     ];
+
+    //     $this->user->tambah($data);
+    // }
+
     public function auth()
     {
         $res = array();
@@ -31,6 +45,8 @@ class Login extends BaseController
             if ($query) {
                 if (password_verify($password, rtrim($query['password']))) {
                     session()->set('id_user', $query['userid']);
+                    session()->set('name', $query['fullname']);
+                    session()->set('logged_in', TRUE);
                     $res = [
                         'success' => 1,
                         'msg' => "Login Success",
@@ -57,7 +73,13 @@ class Login extends BaseController
 
     public function logout()
     {
-        session()->destroy();
+        $data = [
+            'last_login' => date('Y-m-d H:i:s'),
+        ];
+        $q = $this->user->edit($data, session()->get('id_user'));
+        if ($q) {
+            session()->destroy();
+        }
         return redirect()->to('login');
     }
 }

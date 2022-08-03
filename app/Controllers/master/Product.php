@@ -23,7 +23,8 @@ class Product extends BaseController
 
     public function index()
     {
-        if (session()->get('id_user') != '') {
+        $id = session()->get('id_user');
+        if ($id != null) {
             $data = [
                 'title' => 'Data Product',
             ];

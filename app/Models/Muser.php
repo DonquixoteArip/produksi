@@ -25,4 +25,9 @@ class Muser extends Model
             ->where("u.username", $uname)
             ->get()->getRowArray();
     }
+
+    public function edit($data, $id)
+    {
+        return $this->builder->update($data, ['userid' => $id]);
+    }
 }

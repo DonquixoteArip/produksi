@@ -40,9 +40,13 @@ $routes->add('/', 'login\Login::index');
 $routes->add('login', 'login\Login::index');
 $routes->add('login/auth', 'login\Login::auth');
 $routes->add('logout', 'login\Login::logout');
+// Static create user login
+// $routes->add('user/add', 'login\Login::usera');
 
 // Index Home
-$routes->add('prod', 'master\Produksi::index');
+$routes->add('prod', 'master\Produksi::index', ['filter' => 'auth']);
+$routes->add('product', 'master\Product::index', ['filter' => 'auth']);
+$routes->add('history', 'master\History::index', ['filter' => 'auth']);
 
 // Datatables
 $routes->add('prod/table', 'master\Produksi::datatable');
@@ -58,14 +62,18 @@ $routes->add('prod/edit', 'master\Produksi::forms');
 $routes->add('prod/result', 'master\Produksi::saveRes');
 $routes->add('prod/getSel', 'master\Produksi::getSel');
 $routes->add('prod/prev', 'master\Produksi::getProduct');
+$routes->add('prod/upex', 'master\Produksi::Upex');
+
 
 // Product
-$routes->add('product', 'master\Product::index');
 $routes->add('product/form', 'master\Product::formViews');
 $routes->add('product/add', 'master\Product::process');
 $routes->add('product/single', 'master\Product::getOne');
 $routes->add('product/exp/(:num)', 'master\Product::exPDF/$1');
 $routes->add('product/delete', 'master\Product::delete');
+
+// History
+$routes->add('history/datatabel', 'master\History::datatables');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -266,8 +266,13 @@
         });
 
         $("#formproduct input[type!=date]").keydown(function(e) {
+            var index = $('#formproduct input[type!=date]').index($(this)) + 1;
             if (e.keyCode == 13) {
-                var index = $('#formproduct input[type!=date]').index($(this)) + 1;
+                $('#formproduct input[type!=date]').eq(index).focus();
+            }
+        }).keyup(function() {
+            var index = $('#formproduct input[type!=date]').index($(this)) + 1;
+            if (parseInt($(this).val().length) == $(this).attr('maxlength')) {
                 $('#formproduct input[type!=date]').eq(index).focus();
             }
         });
@@ -312,6 +317,7 @@
                 },
                 success: function(res) {
                     $('#idh').val(res.header);
+                    $('#hid').val(res.header);
                     $('#btn-export').attr('disabled', false);
                     $('#btn-export').attr('href', '<?= base_url('product/exp') ?>' + '/' + res.header);
                     if (res.success == 1) {
@@ -364,6 +370,7 @@
             } else {
                 $.notify('Serial Number required', 'warn');
             }
+            $('#serialnum').val("");
         });
 
         $('#serialnum').keydown(function(e) {

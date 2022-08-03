@@ -7,7 +7,7 @@
         <section class="section">
             <div class="card p-4 rounded border-0 shadow-sm">
                 <div class="header-card d-flex justify-content-between">
-                    <span class="fw-bold fs-5 text-secondary">Master Produk</span>
+                    <span class="fw-bold fs-5 text-primary">Master Produk</span>
                     <button class="btn btn-sm btn-primary rounded-pill" id="btn-add"><span class="fw-semibold fs-7">Add Data</span></button>
                 </div>
                 <hr class="mt-2 mb-3">

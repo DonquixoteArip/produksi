@@ -24,7 +24,8 @@ class Produksi extends BaseController
 
     public function index()
     {
-        if (session()->get('id_user') != '') {
+        $id = session()->get('id_user');
+        if ($id != null) {
             $data = [
                 'title' => 'Produksi',
             ];
@@ -314,6 +315,37 @@ class Produksi extends BaseController
             $res = [
                 'success' => 0,
                 'msg' => 'Directory already exist',
+            ];
+        }
+
+        echo json_encode($res);
+    }
+
+    public function Upex()
+    {
+        $res = array();
+        $id = $this->request->getPost('id');
+
+        if ($id != '') {
+            $data = [
+                'exportdate' => date('Y-m-d H:i:s'),
+            ];
+            $q = $this->prod->edit($data, $id);
+            if ($q) {
+                $res = [
+                    'success' => 1,
+                    'msg' => 'Data Exported',
+                ];
+            } else {
+                $res = [
+                    'success' => 0,
+                    'msg' => 'Failed to export data',
+                ];
+            }
+        } else {
+            $res = [
+                'success' => 0,
+                'msg' => 'Data id is not defined',
             ];
         }
 

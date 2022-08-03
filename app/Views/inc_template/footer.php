@@ -90,7 +90,7 @@
             },
             error: function(xhr, ajaxOptions, thrownError) {
                 $.notify(thrownError, 'error');
-            }
+            },
         })
     }
 
@@ -177,13 +177,16 @@
     var wizard = $('#smartwizard').smartWizard({
         theme: 'dots',
         justified: true,
+        autoAdjustHeight: false,
         keyboard: {
             keyNavigation: false,
         },
         anchor: {
             anchorClickable: true,
             enableNavigationAlways: false,
+            unDoneOnBackNavigation: true,
         },
+
     });
     $('#btn-sideslide').on('click', function() {
         $('.icon-chevron').toggleClass('rotateIcon');

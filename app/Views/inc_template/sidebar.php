@@ -6,11 +6,11 @@
                     <img src="<?= base_url('public/assets/images/faces/avatar-1.png') ?>" />
                 </div>
                 <div class="nav-profile-text d-flex ms-0 mb-3 flex-column mt-2">
-                    <span class="font-weight-semibold mb-1 mt-2 text-center">Asep Sanjaya</span>
+                    <span class="font-weight-semibold mb-1 mt-2 text-center"><?= session()->get('name') ?></span>
                 </div>
             </a>
         </li>
-        <li class="nav-item p-3 pt-3">
+        <li class="nav-item p-3 pt-4">
             <form class="d-flex" action="#">
                 <div class="input-group d-flex align-items-center">
                     <input type="text" class="form-control border fs-7 rounded-pill px-3" placeholder="Search" id="search-input">
@@ -23,12 +23,18 @@
             </form>
         </li>
         <li class="pt-1">
-            <span class="nav-item-head">Dashboard</span>
+            <span class="nav-item-head">Produksi</span>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('prod') ?>">
                 <i class="fas fa-box fs-6 menu-icon"></i>
                 <span class="menu-title">Product</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('history') ?>">
+                <i class="fas fa-clock fs-6 menu-icon"></i>
+                <span class="menu-title">History</span>
             </a>
         </li>
         <li class="nav-item">

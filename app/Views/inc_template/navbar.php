@@ -1,4 +1,4 @@
-<div class="container-fluid page-body-wrapper min-vh-100">
+<div class="container-fluid page-body-wrapper">
     <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
             <button class="navbar-toggler navbar-toggler d-flex align-items-center" id="btn-sideslide" type="button" data-toggle="minimize">

@@ -1,7 +1,7 @@
 <div class="container bg-white shadow-sm rounded border-0 mb-4" style="height: max-content;">
     <div class="content p-4 px-2">
         <div class="header-title d-flex justify-content-between align-items-start">
-            <input type="hidden" name="hid" id="hid" value="62">
+            <input type="hidden" name="hid" id="hid" value="">
             <span class="fw-bold fs-6 text-primary">REPORT</span>
             <a target="_blank" href="" class="btn btn-sm btn-primary" id="btn-export">Export</a>
         </div>
@@ -26,12 +26,29 @@
 </div>
 <script>
     $('#btn-export').click(function() {
-        $('#smartwizard').smartWizard("goToStep", 0);
-        $(this).attr('disabled', true);
-        setTimeout(() => {
-            $('#smartwizard').smartWizard("reset");
-            $(this).attr('href', '');
-        }, 100);
+        var id = $('#hid').val();
+        $.ajax({
+            url: '<?= base_url('prod/upex') ?>',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                id: id,
+            },
+            success: function(res) {
+                if (res.success == 1) {
+                    $.notify(res.msg, 'success');
+                    $('#smartwizard').smartWizard("goToStep", 0);
+                    $(this).attr('disabled', true);
+                    $('#hid').val("");
+                    setTimeout(() => {
+                        $('#smartwizard').smartWizard("reset");
+                        $(this).attr('href', '');
+                    }, 100);
+                } else {
+                    $.notify(res.msg, 'warn');
+                }
+            }
+        })
     });
 
     var tbl_rep = $('#tbl_data').DataTable({
