@@ -32,7 +32,7 @@
 <body>
     <?php
     $total = count($data);
-    $page = $total / 8;
+    $page = $total / 9;
     $ex = explode('.', $page);
     $total_ex = count($ex);
     $total_page = round($page);
