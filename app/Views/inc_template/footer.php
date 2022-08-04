@@ -183,8 +183,8 @@
         },
         anchor: {
             anchorClickable: true,
-            enableNavigationAlways: false,
-            unDoneOnBackNavigation: true,
+            enableNavigationAlways: true,
+            unDoneOnBackNavigation: false,
         },
 
     });

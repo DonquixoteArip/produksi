@@ -208,6 +208,6 @@ class Product extends BaseController
         $pdf->loadHtml($view);
         $pdf->setPaper('A4', 'landscape');
         $pdf->render();
-        $pdf->stream('data-export', array('attachment' => false));
+        $pdf->stream('data-export', array('Attachment' => 0));
     }
 }

@@ -3,7 +3,7 @@
         <div class="header-title d-flex justify-content-between align-items-start">
             <input type="hidden" name="hid" id="hid" value="">
             <span class="fw-bold fs-6 text-primary">REPORT</span>
-            <a target="_blank" href="" class="btn btn-sm btn-primary" id="btn-export">Export</a>
+            <a target="" href="<?= base_url('product/exp/90') ?>" class="btn btn-sm btn-primary" id="btn-export">Export</a>
         </div>
         <hr>
         <div class="report-content mt-3">
@@ -25,31 +25,31 @@
     </div>
 </div>
 <script>
-    $('#btn-export').click(function() {
-        var id = $('#hid').val();
-        $.ajax({
-            url: '<?= base_url('prod/upex') ?>',
-            type: 'post',
-            dataType: 'json',
-            data: {
-                id: id,
-            },
-            success: function(res) {
-                if (res.success == 1) {
-                    $.notify(res.msg, 'success');
-                    $('#smartwizard').smartWizard("goToStep", 0);
-                    $(this).attr('disabled', true);
-                    $('#hid').val("");
-                    setTimeout(() => {
-                        $('#smartwizard').smartWizard("reset");
-                        $(this).attr('href', '');
-                    }, 100);
-                } else {
-                    $.notify(res.msg, 'warn');
-                }
-            }
-        })
-    });
+    // $('#btn-export').click(function() {
+    //     var id = $('#hid').val();
+    //     $.ajax({
+    //         url: '<?= base_url('prod/upex') ?>',
+    //         type: 'post',
+    //         dataType: 'json',
+    //         data: {
+    //             id: id,
+    //         },
+    //         success: function(res) {
+    //             if (res.success == 1) {
+    //                 $.notify(res.msg, 'success');
+    //                 $('#smartwizard').smartWizard("goToStep", 0);
+    //                 $(this).attr('disabled', true);
+    //                 $('#hid').val("");
+    //                 setTimeout(() => {
+    //                     $('#smartwizard').smartWizard("reset");
+    //                     $(this).attr('href', '');
+    //                 }, 100);
+    //             } else {
+    //                 $.notify(res.msg, 'warn');
+    //             }
+    //         }
+    //     })
+    // });
 
     var tbl_rep = $('#tbl_data').DataTable({
         serverSide: true,

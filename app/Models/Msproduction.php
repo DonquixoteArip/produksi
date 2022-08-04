@@ -48,7 +48,7 @@ class Msproduction extends Model
     public function getHead($header)
     {
         return $this->builder
-            ->select('p.id, p.productid as pid, p.ordernumber, p.batchnumber, p.productiondate, ps.headerid, ps.serialnumber, r.status, r.createddate, r.createddate, pr.partnumber, pr.productid as prid')
+            ->select('p.id, p.productid as pid, p.ordernumber, p.batchnumber, p.productiondate, ps.headerid, ps.serialnumber, r.status, r.createddate, r.createddate, pr.partnumber, pr.productname, pr.productid as prid')
             ->join('productionordersn as ps', 'p.id = ps.headerid')
             ->join('productionresult as r', 'ps.id = r.snid')
             ->join('msproduct as pr', 'p.productid = pr.productid', 'left')

@@ -22,7 +22,8 @@
             border: 1px solid #000;
         }
 
-        .tbl_ex tr td {
+        .tbl_ex tr td,
+        .tbl_ex tr th {
             border: 1px solid #000;
         }
     </style>
@@ -51,19 +52,25 @@
                     <tr>
                         <td rowspan="2" colspan="2" style="border: 1px solid #000;">
                             <div style="margin-left: 25px; margin-right: 150px;">
-                                <h4 style="font-weight: 500;">Materials</h4>
-                                <h4 style="font-weight: normal;"><?= $row['ordernumber'] ?></h4>
+                                <h4>
+                                    <span class="fs-7 fw-semibold">Materials</span><br>
+                                    <span class="fs-7" style="font-weight: normal;"><?= $row['productname'] ?></span><span style="font-weight: normal;"> - </span><span class="fs-7" style="font-weight: normal;"><?= $row['ordernumber'] ?></span>
+                                </h4>
                             </div>
                         </td>
                         <td rowspan="2" colspan="2" style="border: 1px solid #000;">
                             <div style="margin-left: 25px; margin-right: 90px;">
-                                <h4 style="font-weight: 500;">Batch Number</h4>
-                                <h4 style="font-weight: normal;"><?= $row['batchnumber'] ?></h4>
+                                <h4>
+                                    <span class="fw-semibold">Batch Number</span>
+                                    <span style="font-weight: normal;"><?= $row['batchnumber'] ?></span>
+                                </h4>
                             </div>
                         </td>
                         <td colspan="2" style="border: 1px solid #000;">
                             <div style="margin-left: 25px; margin-right: 25px;">
-                                <h5 style="font-weight: 300;">Serial Number(s)</h6>
+                                <h5>
+                                    <span class="fw-semibold">Serial Number(s)</span><span class="fw-normal" style="font-weight: normal;"> - </span><span style="font-weight: normal;"><?= count($row) ?></span>
+                                </h5>
                             </div>
                         </td>
                     </tr>
@@ -75,11 +82,11 @@
                         </td>
                     </tr>
                     <tr style="font-weight: 300; font-size: 14px;">
-                        <td>Unit</td>
-                        <td>Serial Number</td>
-                        <td colspan="2">Serial Number Barcode</td>
-                        <td>Status</td>
-                        <td>Date</td>
+                        <th colspan="1">Unit</th>
+                        <th style="width: 300px;">Serial Number</th>
+                        <th colspan="2" style="width: 700px;">Serial Number Barcode</th>
+                        <th style="width: 175px;">Status</th>
+                        <th style="width: 190px;">Date</th>
                     </tr>
                     <?php
                     $barcode = new \Picqer\Barcode\BarcodeGeneratorPNG();
@@ -89,7 +96,7 @@
                         $offset = $b;
                     ?>
                         <tr>
-                            <td><?= $b + 1 ?></td>
+                            <td style="text-align: center;"><?= $b + 1 ?></td>
                             <td><?= $data[$b]['data']['serialnumber'] ?></td>
                             <td colspan="2" style="text-align: center;">
                                 <img style="margin-top: 10px; margin-bottom: 10px;" src="data:image/png;base64,<?= base64_encode($barcode->getBarcode($data[$b]['data']['serialnumber'], $barcode::TYPE_CODE_128)) ?>">
@@ -112,10 +119,10 @@
                                 ?>
                                 <?= $status ?>
                             </td>
-                            <td><?= date('d-m-Y', strtotime($data[$b]['data']['createddate'])) ?></td>
+                            <td><?= date('d-m-Y H:i:s', strtotime($data[$b]['data']['createddate'])) ?></td>
                         </tr>
                         <?php
-                        if ($asd == 8) {
+                        if ($asd == 9) {
                             $asd = 0;
                             $offset++;
                             break;
