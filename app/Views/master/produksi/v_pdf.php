@@ -77,7 +77,11 @@
                     <tr>
                         <td colspan="2">
                             <div style="margin-left: 25px; margin-right: 25px;">
-                                <h5 style="font-weight: 500;">Print Date: &nbsp;<span style="font-weight: normal;"><?= date('l, d F Y') ?></span> </h5>
+                                <h5>
+                                    <span>
+                                        Print Date: &nbsp;<span style="font-weight: normal;"><?= date('l, d F Y') ?></span>
+                                    </span>
+                                </h5>
                             </div>
                         </td>
                     </tr>
